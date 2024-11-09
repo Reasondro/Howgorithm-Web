@@ -1,0 +1,10 @@
+.highlight {
+  animation: colorCycle 1s infinite;
+  font-weight: bold;
+}
+
+.sorted {
+  color: var(--color-accent-100);
+  font-weight: bold;
+  animation: colorCycleAccent 1s infinite;
+}

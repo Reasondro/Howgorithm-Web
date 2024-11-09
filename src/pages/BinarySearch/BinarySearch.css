@@ -1,0 +1,26 @@
+.item4 form {
+  grid-template-columns: 3fr 1fr auto;
+}
+
+.active-range {
+  color: wheat;
+}
+
+.mid {
+  color: red;
+  font-weight: bold;
+}
+
+.inactive {
+  color: lightgray;
+}
+
+.mid.active-range {
+  color: aquamarine;
+  font-weight: bold;
+  text-decoration: underline;
+}
+
+.found {
+  animation: colorCycleAccent 1s infinite !important;
+}

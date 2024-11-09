@@ -19,9 +19,9 @@ export default function Header() {
           />
         </svg>
       </nav>
-      <a id="logo" href="/">
+      <Link id="logo" to="/">
         HOWGORITHM
-      </a>
+      </Link>
 
       <ul id="algo-categories">
         <li className="algo-type">

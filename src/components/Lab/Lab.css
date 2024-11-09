@@ -1,0 +1,359 @@
+#grid-container {
+  display: grid;
+  height: 100%;
+  grid-template-columns: 2fr 1fr 1fr;
+  gap: 1rem;
+  padding: 1rem;
+}
+
+#grid-container > section {
+  text-align: center;
+  font-size: 30px;
+  border-radius: 15px;
+  overflow: hidden;
+}
+
+.item1 {
+  grid-column-start: 1;
+  grid-column-end: 3;
+  grid-row-start: 1;
+  grid-row-end: 2;
+  padding: 0 2rem 1rem 2rem;
+  height: 25rem;
+  border: 1px solid var(--color-grey-400);
+}
+
+.item1 #overview-content h1 {
+  font-size: 3.5rem;
+}
+.item1 #overview-content p {
+  font-size: 1.25rem;
+  text-align: left;
+  text-align: justify;
+}
+
+.item2 {
+  grid-column-start: 3;
+  grid-column-end: 4;
+  grid-row-start: 1;
+  grid-row-end: 2;
+  border: 1px solid var(--color-grey-400);
+  display: grid;
+  grid-template-rows: auto 1fr 1fr 1fr 1fr;
+  height: 25rem;
+  align-items: center;
+}
+
+.item2 #guide-container {
+  background-color: var(--color-accent-600);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 6rem;
+  min-height: 6rem;
+  max-height: 6rem;
+}
+.item2 p {
+  padding: 0;
+  margin: 0;
+  font-size: 1.8rem;
+  font-weight: 400;
+}
+
+.item2 #guide {
+  font-family: "Gruppo", sans-serif;
+  color: var(--color-white-600);
+  margin: 0;
+  font-size: 2.5rem;
+}
+
+.item2 #user-instructions {
+  margin-top: 1rem;
+  font-style: italic;
+  font-weight: bold;
+}
+.item3 {
+  grid-column-start: 1;
+  grid-column-end: 3;
+  grid-row-start: 2;
+  grid-row-end: 5;
+  height: 20rem;
+  max-height: 20rem;
+  display: grid;
+  grid-template-rows: 2fr 1fr;
+  align-items: center;
+  background-color: var(--color-black-700);
+  border: 1px solid var(--color-grey-400);
+}
+
+.item3 p {
+  padding: 0;
+  margin: 0;
+  font-size: 4rem;
+  font-weight: bold;
+  color: var(--color-white-600);
+}
+
+.item3 > #result {
+  font-family: "Major Mono Display";
+  font-size: 4rem;
+}
+
+.item3 > #status-info {
+  font-family: "Oxanium", sans-serif;
+  font-size: 2.5rem;
+  animation: colorCycleAccent 1s infinite;
+}
+.item4 {
+  grid-column: 1/3;
+  grid-row: 5/6;
+}
+
+.item4 form {
+  display: grid;
+  width: 100%;
+  height: 100%;
+  grid-template-columns: 1fr auto;
+  align-items: center;
+  grid-column-gap: 0.5rem;
+}
+
+.item4 form input {
+  width: 100%;
+  height: 5rem;
+  background-color: var(--color-white-600);
+  border: 1px solid var(--color-grey-300);
+  box-shadow: 0px 0px 1px var(--color-grey-100);
+  padding: 0 0.7rem;
+
+  border-radius: 10px;
+  overflow: none;
+  font-family: "Quicksand", sans-serif;
+  font-size: 1.8rem;
+  font-weight: 600;
+  color: var(--color-white-600);
+  animation: colorCycleGrey 1s infinite;
+}
+
+.item4 form input:focus {
+  outline: none;
+  animation: none;
+}
+
+.item4 form #button-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.item4 form button {
+  background-color: transparent;
+  border: none;
+  padding: 0;
+}
+
+.item4 form #play-btn {
+  color: var(--color-accent-600);
+  align-self: center;
+  width: 5rem;
+  object-fit: cover;
+  cursor: pointer;
+  color: var(--color-red-500);
+  cursor: pointer;
+}
+
+.item5 {
+  font-family: "Gruppo", sans-serif;
+  grid-column-start: 3;
+  grid-column-end: 4;
+  grid-row-start: 2;
+  grid-row-end: 6;
+  height: 30rem;
+  border: 1px solid var(--color-grey-400);
+}
+
+.item5 {
+  display: grid;
+  grid-template-rows: auto 1fr;
+  grid-template-columns: 1fr 1fr;
+  padding: 0;
+  overflow: hidden;
+}
+
+.item5 #controller-container {
+  display: flex;
+  justify-content: center;
+  grid-column: 1/4;
+  background-color: var(--color-grey-600);
+  height: 100%;
+  align-items: center;
+  overflow: hidden;
+  min-height: 6rem;
+  height: 6rem;
+  max-height: 6rem;
+}
+
+.item5 #controller-text {
+  text-transform: uppercase;
+
+  font-size: 2.5rem;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  color: var(--color-white-600);
+}
+
+.item5 button {
+  padding: 0;
+  margin: 0;
+  display: block;
+  height: 100%;
+  grid-row: 2/4;
+  border: none;
+  background-color: var(--color-primary);
+  transition: background-color 0.1s ease-in 0s;
+  color: aliceblue;
+  cursor: pointer;
+}
+
+.item5 button:hover {
+  background-color: var(--color-secondary);
+}
+
+.item5 button svg {
+  margin: 0;
+  width: 5rem;
+  padding: 1rem;
+
+  border-radius: 10px;
+  overflow: hidden;
+  cursor: pointer;
+  transition: color 0.1s ease-in 0s;
+}
+
+@media (max-width: 1800px) {
+  .item1 {
+    height: 17rem;
+    padding: 0 1rem 0.5rem 1rem;
+  }
+  .item2 {
+    height: 17rem;
+  }
+
+  .item2 #guide-container {
+    height: 4rem;
+    min-height: 4rem;
+    max-height: 4rem;
+  }
+
+  .item2 #guide {
+    margin: 0;
+    font-size: 2rem;
+  }
+
+  .item2 p {
+    padding: 0;
+    margin: 0;
+    font-size: 1.3rem;
+    font-weight: 400;
+  }
+  .item2 #user-instructions {
+    margin-top: 0.5rem;
+  }
+
+  #overview-content h1 {
+    font-size: 3rem;
+  }
+  #overview-content p {
+    font-size: 1rem;
+  }
+
+  .item3 {
+    height: 15rem;
+    max-height: 15rem;
+  }
+  .item3 #result {
+    font-size: 3rem;
+  }
+  .item3 #status-info {
+    font-size: 1.8rem;
+  }
+
+  .item4 form input {
+    font-size: 1.2rem;
+  }
+
+  .item5 {
+    height: 20rem;
+  }
+
+  .item5 #controller-container {
+    min-height: 4rem;
+    height: 4rem;
+    max-height: 4rem;
+  }
+
+  .item5 #controller-text {
+    font-size: 2rem;
+  }
+}
+
+@keyframes colorCycle {
+  0% {
+    color: var(--color-red-500);
+  }
+  50% {
+    color: var(--color-red-100);
+  }
+  100% {
+    color: var(--color-red-500);
+  }
+}
+
+@keyframes colorCycleGrey {
+  0% {
+    background-color: var(--color-grey-300);
+  }
+  50% {
+    background-color: var(--color-grey-100);
+  }
+  100% {
+    background-color: var(--color-grey-300);
+  }
+}
+
+@keyframes colorCycleBlack {
+  0% {
+    background-color: var(--color-black-700);
+  }
+  50% {
+    background-color: var(--color-white-600);
+  }
+  100% {
+    background-color: var(--color-black-700);
+  }
+}
+
+@keyframes colorCycleBlue {
+  0% {
+    background-color: var(--color-primary);
+  }
+  50% {
+    background-color: var(--color-secondary);
+  }
+  100% {
+    background-color: var(--color-primary);
+  }
+}
+
+@keyframes colorCycleAccent {
+  0% {
+    color: var(--color-accent-100);
+  }
+  50% {
+    color: var(--color-accent-300);
+  }
+  100% {
+    color: var(--color-accent-100);
+  }
+}
