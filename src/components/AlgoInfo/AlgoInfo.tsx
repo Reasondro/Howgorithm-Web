@@ -1,4 +1,8 @@
-export default function AlgoInfo({ algoName }: { algoName: string }) {
+interface algoInfoProps {
+  algoName: string;
+}
+
+export default function AlgoInfo({ algoName }: algoInfoProps) {
   return (
     <section className="item1">
       <div id="overview-content">
