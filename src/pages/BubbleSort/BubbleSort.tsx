@@ -170,7 +170,7 @@ export default function BubbleSort() {
           <p id="status-info">{resultMessage}</p>
         </section>
         <section className="item4">
-          <form onSubmit={handleSort}>
+          <form onSubmit={handleSort} className="bubbleSortForm">
             <div id="user-input-array-wrapper">
               <input
                 id="user-input-array"

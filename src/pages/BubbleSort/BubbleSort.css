@@ -1,3 +1,7 @@
+.item4 > .bubbleSortForm {
+  grid-template-columns: 1fr auto;
+}
+
 .active {
   animation: colorCycle 1s infinite;
   font-weight: bold;

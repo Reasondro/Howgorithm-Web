@@ -244,7 +244,7 @@ export default function BinarySearch() {
           <p id="status-info">{resultMessage}</p>
         </section>
         <section className="item4">
-          <form onSubmit={handleSearch}>
+          <form onSubmit={handleSearch} className="binarySearchForm">
             <input
               type="text"
               id="user-input-array"
