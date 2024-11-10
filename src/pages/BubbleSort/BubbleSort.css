@@ -1,4 +1,4 @@
-.highlight {
+.active {
   animation: colorCycle 1s infinite;
   font-weight: bold;
 }
