@@ -17,6 +17,66 @@ const BinarySearch: React.FC = () => {
   const [currentStep, setCurrentStep] = useState<number>(0);
   const [resultMessage, setResultMessage] = useState<string>("");
 
+  const [arrayInputStyle, setArrayInputStyle] = useState<React.CSSProperties>(
+    {}
+  );
+  const [targetInputStyle, setTargetInputStyle] = useState<React.CSSProperties>(
+    {}
+  );
+  const [playBtnStyle, setPlayBtnStyle] = useState<React.CSSProperties>({});
+
+  const handleInputChange = (inputType: string, value: string) => {
+    const hasContent: boolean = value.trim() !== "";
+
+    if (inputType === "array") {
+      setArrayInputStyle({
+        backgroundColor: hasContent ? "var(--color-secondary)" : "white",
+        borderColor: hasContent
+          ? "var(--color-accent-300)"
+          : "var(--color-grey-300)",
+        animation: hasContent ? "none" : "colorCycleGrey 1s infinite",
+      });
+    }
+
+    if (inputType === "target") {
+      setTargetInputStyle({
+        backgroundColor: hasContent ? "var(--color-secondary)" : "white",
+        borderColor: hasContent
+          ? "var(--color-accent-300)"
+          : "var(--color-grey-300)",
+        animation: hasContent ? "none" : "colorCycleGrey 1s infinite",
+      });
+    }
+  };
+
+  const checkBothInputs = useCallback(() => {
+    if (array.length > 0 && target !== null) {
+      setPlayBtnStyle({ animation: "colorCycle 1s infinite" });
+    } else {
+      setPlayBtnStyle({ animation: "none" });
+    }
+  }, [array, target]);
+
+  useEffect(() => {
+    checkBothInputs();
+  }, [array, target, checkBothInputs]);
+
+  const handleArrayInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const inputArray = e.target.value
+      .split(",")
+      .filter((num) => num !== "")
+      .map(Number)
+      .filter((num) => !isNaN(num));
+    setArray(inputArray);
+    handleInputChange("array", e.target.value);
+  };
+
+  const handleTargetInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const inputValue = e.target.value.trim();
+    setTarget(inputValue === "" ? null : Number(inputValue));
+    handleInputChange("target", e.target.value);
+  };
+
   const mergeSort = (arr: number[], left: number, right: number) => {
     if (left >= right) return;
     const mid = Math.floor(left + (right - left) / 2);
@@ -98,7 +158,8 @@ const BinarySearch: React.FC = () => {
     const arr = array.slice();
     mergeSort(arr, 0, arr.length - 1);
     binarySearch(arr, target!);
-    setCurrentStep(0); // Reset to the first step
+    setCurrentStep(0);
+    setPlayBtnStyle({ animation: "none" });
   };
 
   const handleNextStep = () => {
@@ -111,20 +172,6 @@ const BinarySearch: React.FC = () => {
     if (currentStep > 0) {
       setCurrentStep(currentStep - 1);
     }
-  };
-
-  const handleArrayInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const inputArray = e.target.value
-      .split(",")
-      .filter((num) => num !== "")
-      .map(Number)
-      .filter((num) => !isNaN(num));
-    setArray(inputArray);
-  };
-
-  const handleTargetInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const inputValue = Number(e.target.value);
-    setTarget(isNaN(inputValue) ? null : inputValue);
   };
 
   return (
@@ -183,12 +230,14 @@ const BinarySearch: React.FC = () => {
               id="user-input-array"
               placeholder="Enter array (e.g. 1,2,3)"
               onChange={handleArrayInputChange}
+              style={arrayInputStyle}
             />
             <input
               type="text"
               id="user-input-el"
               placeholder="Your element"
               onChange={handleTargetInputChange}
+              style={targetInputStyle}
             />
             <button type="submit" aria-label="Submit">
               <svg
@@ -197,6 +246,7 @@ const BinarySearch: React.FC = () => {
                 viewBox="0 0 24 24"
                 fill="currentColor"
                 className="size-6"
+                style={playBtnStyle}
               >
                 <path
                   fillRule="evenodd"
