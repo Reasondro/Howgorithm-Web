@@ -27,6 +27,29 @@ export default function BinarySearch() {
   );
   const [playBtnStyle, setPlayBtnStyle] = useState<React.CSSProperties>({});
 
+  const handleArrayInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const inputArray = e.target.value
+      .split(",")
+      .filter((num) => num !== "")
+      .map(Number)
+      .filter((num) => !isNaN(num));
+    setArray(inputArray);
+    handleInputChange("array", e.target.value);
+  };
+
+  const handleTargetInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const inputValue = e.target.value.trim();
+    const numValue = Number(inputValue);
+
+    if (inputValue === "" || isNaN(numValue)) {
+      setTarget(null);
+    } else {
+      setTarget(Number(numValue));
+    }
+
+    handleInputChange("target", e.target.value);
+  };
+
   const handleInputChange = (inputType: string, value: string) => {
     const hasContent: boolean = value.trim() !== "";
 
@@ -62,29 +85,6 @@ export default function BinarySearch() {
   useEffect(() => {
     checkBothInputs();
   }, [array, target, checkBothInputs]);
-
-  const handleArrayInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const inputArray = e.target.value
-      .split(",")
-      .filter((num) => num !== "")
-      .map(Number)
-      .filter((num) => !isNaN(num));
-    setArray(inputArray);
-    handleInputChange("array", e.target.value);
-  };
-
-  const handleTargetInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const inputValue = e.target.value.trim();
-    const numValue = Number(inputValue);
-
-    if (inputValue === "" || isNaN(numValue)) {
-      setTarget(null);
-    } else {
-      setTarget(Number(numValue));
-    }
-
-    handleInputChange("target", e.target.value);
-  };
 
   const mergeSort = (arr: number[], left: number, right: number) => {
     if (left >= right) return;

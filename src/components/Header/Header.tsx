@@ -1,7 +1,33 @@
 import { Link } from "react-router-dom";
 import "@/components/Header/Header.css";
 
+import { supabase } from "@/utils/supabase/supabaseClient";
+
 export default function Header() {
+  async function checkUser() {
+    const {
+      data: { user },
+    } = await supabase.auth.getUser();
+
+    if (user) {
+      alert(user.email);
+    } else {
+      alert("no user here");
+    }
+  }
+  async function signOut() {
+    const {
+      data: { user },
+    } = await supabase.auth.getUser();
+
+    if (user) {
+      alert("Signing out " + user.email);
+      await supabase.auth.signOut();
+    } else {
+      alert("no user here");
+    }
+  }
+
   return (
     <header id="main-header">
       <nav id="hamburger-wrapper">
@@ -47,6 +73,16 @@ export default function Header() {
             <Link to="/binary-search" id="action-btn">
               PLAY
             </Link>
+          </li>
+          <li>
+            <button id="action-btn" onClick={checkUser}>
+              Check user
+            </button>
+          </li>
+          <li>
+            <button id="action-btn" onClick={signOut}>
+              Sign Out
+            </button>
           </li>
           <li id="search-wrapper">
             <svg
