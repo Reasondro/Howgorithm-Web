@@ -41,7 +41,7 @@ export default function Header() {
       <nav>
         <ul id="standard-nav">
           <li>
-            <a href="/">SIGN IN</a>
+            <Link to="/sign-in">SIGN IN</Link>
           </li>
           <li>
             <Link to="/binary-search" id="action-btn">
