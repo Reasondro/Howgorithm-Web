@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect, useState } from "react";
 import "@/components/Lab/Lab.css";
-import "./BinarySearch.css";
+import "@/pages/BinarySearch/BinarySearch.css";
 
 interface Iteration {
   array: number[];
@@ -10,7 +10,7 @@ interface Iteration {
   comparison: string;
 }
 
-const BinarySearch: React.FC = () => {
+export default function BinarySearch() {
   const [array, setArray] = useState<number[]>([]);
   const [target, setTarget] = useState<number | null>(null);
   const [iterations, setIterations] = useState<Iteration[]>([]);
@@ -177,17 +177,19 @@ const BinarySearch: React.FC = () => {
     setCurrentStep(0);
     setPlayBtnStyle({ animation: "none" });
 
-    setInstructionMessage("See the process below");
+    setInstructionMessage("See the process below!");
   };
 
   const handleNextStep = () => {
     if (currentStep < iterations.length - 1) {
+      setInstructionMessage("See the process below!");
       setCurrentStep(currentStep + 1);
     }
   };
 
   const handlePreviousStep = () => {
     if (currentStep > 0) {
+      setInstructionMessage("See the process below!");
       setCurrentStep(currentStep - 1);
     }
   };
@@ -313,6 +315,6 @@ const BinarySearch: React.FC = () => {
       </div>
     </main>
   );
-};
+}
 
-export default BinarySearch;
+// export default BinarySearch;
