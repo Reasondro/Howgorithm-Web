@@ -1,3 +1,7 @@
+.item4 > .quickSortForm {
+  grid-template-columns: 1fr auto;
+}
+
 .active {
   color: wheat;
 }
