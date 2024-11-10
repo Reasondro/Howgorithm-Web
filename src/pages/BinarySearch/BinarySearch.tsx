@@ -16,6 +16,8 @@ const BinarySearch: React.FC = () => {
   const [iterations, setIterations] = useState<Iteration[]>([]);
   const [currentStep, setCurrentStep] = useState<number>(0);
   const [resultMessage, setResultMessage] = useState<string>("");
+  const [instructionMessage, setInstructionMessage] =
+    useState<string>("Fill the inputs!");
 
   const [arrayInputStyle, setArrayInputStyle] = useState<React.CSSProperties>(
     {}
@@ -73,7 +75,14 @@ const BinarySearch: React.FC = () => {
 
   const handleTargetInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const inputValue = e.target.value.trim();
-    setTarget(inputValue === "" ? null : Number(inputValue));
+    const numValue = Number(inputValue);
+
+    if (inputValue === "" || isNaN(numValue)) {
+      setTarget(null);
+    } else {
+      setTarget(Number(numValue));
+    }
+
     handleInputChange("target", e.target.value);
   };
 
@@ -101,14 +110,16 @@ const BinarySearch: React.FC = () => {
   const binarySearch = (arr: number[], target: number) => {
     let l = 0,
       r = arr.length - 1;
-    const steps: Iteration[] = [];
+    const its: Iteration[] = []; //? iteration local buat nanti di set ke yg punya komponen
     while (l <= r) {
       const mid = Math.floor((l + r) / 2);
       const comparison =
         arr[mid] === target ? "found" : arr[mid] < target ? "less" : "greater";
-      steps.push({ array: arr.slice(), l, r, mid, comparison });
+
+      its.push({ array: arr.slice(), l, r, mid, comparison }); //? logic nge push si iterasiny
+
       if (arr[mid] === target) {
-        setIterations(steps);
+        setIterations(its);
         return;
       } else if (arr[mid] < target) {
         l = mid + 1;
@@ -116,14 +127,14 @@ const BinarySearch: React.FC = () => {
         r = mid - 1;
       }
     }
-    steps.push({
+    its.push({
       array: arr.slice(),
       l,
       r,
       mid: null,
       comparison: "not found",
-    });
-    setIterations(steps);
+    }); //? logic nge push si iterasiny
+    setIterations(its);
   };
 
   const displayCurrentStep = useCallback(() => {
@@ -155,11 +166,18 @@ const BinarySearch: React.FC = () => {
 
   const handleSearch = (e: React.FormEvent) => {
     e.preventDefault();
-    const arr = array.slice();
-    mergeSort(arr, 0, arr.length - 1);
-    binarySearch(arr, target!);
+
+    if (array.length == 0 || target === null) {
+      setInstructionMessage("Fill the inputs correctly!");
+      return;
+    }
+
+    mergeSort(array, 0, array.length - 1);
+    binarySearch(array, target!);
     setCurrentStep(0);
     setPlayBtnStyle({ animation: "none" });
+
+    setInstructionMessage("See the process below");
   };
 
   const handleNextStep = () => {
@@ -189,7 +207,7 @@ const BinarySearch: React.FC = () => {
           <div id="guide-container">
             <h2 id="guide">GUIDE</h2>
           </div>
-          <p id="user-instructions">Fill the inputs!</p>
+          <p id="user-instructions">{instructionMessage}</p>
           <p id="steps">Step {currentStep + 1}</p>
           <p id="index-info">
             Left: {iterations[currentStep]?.l}, Right:{" "}
