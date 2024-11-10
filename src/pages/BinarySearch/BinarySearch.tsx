@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import "@/components/Lab/Lab.css";
 import "./BinarySearch.css";
 
@@ -66,7 +66,7 @@ const BinarySearch: React.FC = () => {
     setIterations(steps);
   };
 
-  const displayCurrentStep = () => {
+  const displayCurrentStep = useCallback(() => {
     if (iterations.length > 0) {
       const { comparison, mid } = iterations[currentStep];
       let message = "";
@@ -87,12 +87,11 @@ const BinarySearch: React.FC = () => {
 
       setResultMessage(message);
     }
-  };
+  }, [currentStep, iterations]);
 
-  // UseEffect to call displayCurrentStep whenever currentStep or iterations change
   useEffect(() => {
     displayCurrentStep();
-  }, [currentStep, iterations]);
+  }, [currentStep, iterations, displayCurrentStep]);
 
   const handleSearch = (e: React.FormEvent) => {
     e.preventDefault();
@@ -154,22 +153,24 @@ const BinarySearch: React.FC = () => {
           <p id="result">
             [
             {iterations[currentStep]?.array.map((num, idx) => (
-              <span
-                key={idx}
-                className={
-                  (idx === iterations[currentStep]?.mid ? "mid " : "") +
-                  (idx >= iterations[currentStep]?.l &&
-                  idx <= iterations[currentStep]?.r
-                    ? "active-range"
-                    : "inactive") +
-                  (iterations[currentStep]?.comparison === "found" &&
-                  idx === iterations[currentStep]?.mid
-                    ? " found"
-                    : "")
-                }
-              >
-                {num}
-              </span>
+              <React.Fragment key={idx}>
+                <span
+                  className={
+                    (idx === iterations[currentStep]?.mid ? "mid " : "") +
+                    (idx >= iterations[currentStep]?.l &&
+                    idx <= iterations[currentStep]?.r
+                      ? "active-range"
+                      : "inactive") +
+                    (iterations[currentStep]?.comparison === "found" &&
+                    idx === iterations[currentStep]?.mid
+                      ? " found"
+                      : "")
+                  }
+                >
+                  {num}
+                </span>
+                {idx < iterations[currentStep].array.length - 1 && ", "}
+              </React.Fragment>
             ))}
             ]
           </p>
@@ -207,14 +208,38 @@ const BinarySearch: React.FC = () => {
           </form>
         </section>
         <section className="item5">
-          <button onClick={handlePreviousStep} disabled={currentStep === 0}>
-            Previous
+          <div id="controller-container">
+            <h2 id="controller-text">Controller</h2>
+          </div>
+          <button
+            type="button"
+            onClick={handlePreviousStep}
+            disabled={currentStep === 0}
+            aria-label="Previous"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 24 24"
+              fill="currentColor"
+              className="size-6"
+            >
+              <path d="M9.195 18.44c1.25.714 2.805-.189 2.805-1.629v-2.34l6.945 3.968c1.25.715 2.805-.188 2.805-1.628V8.69c0-1.44-1.555-2.343-2.805-1.628L12 11.029v-2.34c0-1.44-1.555-2.343-2.805-1.628l-7.108 4.061c-1.26.72-1.26 2.536 0 3.256l7.108 4.061Z" />
+            </svg>
           </button>
           <button
+            type="button"
             onClick={handleNextStep}
             disabled={currentStep === iterations.length - 1}
+            aria-label="Next"
           >
-            Next
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 24 24"
+              fill="currentColor"
+              className="size-6"
+            >
+              <path d="M5.055 7.06C3.805 6.347 2.25 7.25 2.25 8.69v8.122c0 1.44 1.555 2.343 2.805 1.628L12 14.471v2.34c0 1.44 1.555 2.343 2.805 1.628l7.108-4.061c1.26-.72 1.26-2.536 0-3.256l-7.108-4.061C13.555 6.346 12 7.249 12 8.689v2.34L5.055 7.061Z" />
+            </svg>
           </button>
         </section>
       </div>
