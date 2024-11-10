@@ -71,6 +71,9 @@ export default function BubbleSort() {
       }
       if (!swapped) break;
     }
+
+    // Add a final iteration to indicate completion
+    its.push({ array: arrayCopy.slice(), i: n - 1, j: -1, swapped: false });
     setIterations(its);
   };
 
@@ -78,7 +81,9 @@ export default function BubbleSort() {
     if (iterations.length > 0) {
       const { j, swapped } = iterations[currentStep];
       let message;
-      if (swapped) {
+      if (currentStep === iterations.length - 1) {
+        message = "Sorting complete!";
+      } else if (swapped) {
         message = `Swapped indices ${j} and ${j + 1}`;
       } else {
         message = `Comparing elements at indices ${j} and ${j + 1}`;
@@ -146,8 +151,11 @@ export default function BubbleSort() {
               <React.Fragment key={idx}>
                 <span
                   className={
-                    idx === iterations[currentStep]?.j ||
-                    idx === iterations[currentStep]?.j + 1
+                    // Apply 'sorted' class if sorting is complete
+                    currentStep === iterations.length - 1
+                      ? "sorted"
+                      : idx === iterations[currentStep]?.j ||
+                        idx === iterations[currentStep]?.j + 1
                       ? "active"
                       : ""
                   }
