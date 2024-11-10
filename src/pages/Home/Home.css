@@ -1,0 +1,132 @@
+#hero {
+  display: flex;
+  align-items: center;
+  padding: 50px;
+  background-color: #f5f5f5;
+}
+
+.hero-content {
+  flex: 1;
+}
+
+.hero-content h1 {
+  font-size: 3em;
+  margin-bottom: 20px;
+}
+
+.hero-content p {
+  font-size: 1.2em;
+  margin-bottom: 30px;
+}
+
+.cta-button {
+  padding: 15px 30px;
+  background-color: #007acc;
+  color: #fff;
+  text-decoration: none;
+  border-radius: 5px;
+}
+
+.hero-image {
+  flex: 1;
+  text-align: center;
+}
+
+.hero-image img {
+  max-width: 100%;
+  height: auto;
+}
+
+#features {
+  padding: 50px;
+  text-align: center;
+}
+
+#features h2 {
+  font-size: 2.5em;
+  margin-bottom: 40px;
+}
+
+.feature-grid {
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+}
+
+.feature-item {
+  flex: 1 1 30%;
+  margin: 20px;
+}
+
+.feature-item img {
+  height: 80px;
+  margin-bottom: 20px;
+}
+
+.feature-item h3 {
+  font-size: 1.5em;
+  margin-bottom: 15px;
+}
+
+.feature-item p {
+  font-size: 1em;
+}
+
+#popular-algorithms {
+  padding: 50px;
+  background-color: #fafafa;
+}
+
+#popular-algorithms h2 {
+  font-size: 2.5em;
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.algorithms-grid {
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+}
+
+.algorithm-card {
+  flex: 1 1 30%;
+  background-color: #fff;
+  margin: 20px;
+  padding: 20px;
+  text-align: center;
+  border: 1px solid #eaeaea;
+  border-radius: 5px;
+}
+
+.algorithm-card img {
+  max-width: 100%;
+  height: auto;
+  margin-bottom: 20px;
+}
+
+.algorithm-card h3 {
+  font-size: 1.5em;
+  margin-bottom: 15px;
+}
+
+.algorithm-card p {
+  font-size: 1em;
+  margin-bottom: 20px;
+}
+
+.learn-more {
+  text-decoration: none;
+  color: #007acc;
+  font-weight: bold;
+}
+
+#motto {
+  padding: 50px;
+  text-align: center;
+}
+
+#motto h2 {
+  font-size: 2.5em;
+  margin-bottom: 20px;
+}

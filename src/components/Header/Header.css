@@ -1,0 +1,115 @@
+#main-header {
+  display: grid;
+  grid-template-columns: auto auto 1fr auto;
+  height: 100%;
+  align-items: center;
+  width: 100%;
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+  margin: 0 0 3rem 0;
+  align-content: center;
+  position: sticky;
+  top: 0;
+
+  box-shadow: 0px 0px 2px var(--color-grey-400);
+  background-color: var(--color-white-300);
+}
+
+#main-header #hamburger-wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin: 0 1rem;
+}
+#main-header #hamburger-wrapper svg {
+  align-self: center;
+  width: 1.75rem;
+  cursor: pointer;
+  transition: color 0.2s ease-in 0s;
+}
+
+#main-header #hamburger-wrapper svg:hover {
+  color: var(--color-accent-300);
+}
+
+#main-header #logo {
+  font-size: 3rem;
+  font-weight: 500;
+  font-family: "Major Mono Display", sans-serif;
+  color: var(--color-primary);
+}
+
+#main-header #algo-categories {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  align-items: center;
+  margin-left: 2rem;
+}
+
+#main-header .algo-type {
+  margin-right: 1.5rem;
+}
+
+#main-header .algo-type a {
+  color: var(--color-black-700);
+  font-family: "Oxanium", sans-serif;
+  font-size: 0.9rem;
+  font-weight: 700;
+  transition: color 0.2s ease-in 0s, font-size 0.1s ease-in 0s;
+}
+
+#main-header .algo-type a:hover {
+  font-size: 1rem;
+  color: var(--color-accent-300);
+  text-decoration: underline;
+}
+
+#main-header #standard-nav {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0 1rem;
+}
+
+#main-header #standard-nav li {
+  margin-left: 1rem;
+}
+
+#main-header #standard-nav a {
+  color: var(--color-black-700);
+  font-family: "Oxanium", sans-serif;
+  font-size: 0.9rem;
+  font-weight: 700;
+  transition: color 0.4s ease-in 0s;
+}
+
+#main-header #standard-nav a:hover {
+  color: var(--color-accent-300);
+  text-decoration: underline;
+}
+#main-header #standard-nav #action-btn {
+  display: inline-flex;
+  align-items: center;
+  color: var(--color-white-600);
+  font-weight: 600;
+  background-color: var(--color-accent-600);
+  padding: 0.6rem 1.5rem;
+  transition: background-color 0.2s ease-in 0s;
+  border-radius: 7px;
+}
+
+#main-header #standard-nav #action-btn:hover {
+  background-color: var(--color-accent-300);
+  text-decoration: none;
+}
+
+#main-header #standard-nav #search-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#main-header #standard-nav svg {
+  width: 1.5rem;
+}

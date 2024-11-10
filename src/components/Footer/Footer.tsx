@@ -1,3 +1,5 @@
+import "@/components/Footer/Footer.css";
+
 export default function Footer() {
   return (
     <footer id="main-footer">

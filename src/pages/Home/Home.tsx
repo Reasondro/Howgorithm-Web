@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import "@/pages/Home/Home.css";
 
 export default function Home() {
   return (
