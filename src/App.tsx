@@ -12,6 +12,7 @@ import Home from "@/pages/Home/Home";
 import BinarySearch from "@/pages/BinarySearch/BinarySearch";
 import BubbleSort from "@/pages/BubbleSort/BubbleSort";
 import QuickSort from "./pages/QuickSort/QuickSort";
+import BubbleSortQuiz from "./pages/Quiz/BubbleSortQuiz";
 
 function App() {
   return (
@@ -26,6 +27,7 @@ function App() {
           <Route path="/binary-search" element={<BinarySearch />} />
           <Route path="/bubble-sort" element={<BubbleSort />} />
           <Route path="/quick-sort" element={<QuickSort />} />
+          <Route path="/bubble-sort-quiz" element={<BubbleSortQuiz />} />
         </Route>
       </Routes>
     </Router>

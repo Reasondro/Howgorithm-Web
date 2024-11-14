@@ -76,18 +76,52 @@
   margin-left: 1rem;
 }
 
-#main-header #standard-nav a {
+/* #main-header #standard-nav a {
   color: var(--color-black-700);
   font-family: "Oxanium", sans-serif;
   font-size: 0.9rem;
   font-weight: 700;
   transition: color 0.4s ease-in 0s;
 }
+#main-header #standard-nav a:hover {
+  color: var(--color-accent-300);
+  text-decoration: underline;
+} */
+
+#main-header #standard-nav #sign-in {
+  color: var(--color-black-700);
+  padding: 0.8rem 1.5rem;
+  border-radius: 7px;
+  text-decoration: none;
+  font-size: 1rem;
+  font-weight: 700;
+  transition: background-color 0.2s ease-in 0s;
+}
+
+#main-header #standard-nav #sign-in:hover {
+  background-color: var(--color-grey-100);
+}
+
+#main-header #standard-nav #sign-up {
+  color: var(--color-white-600);
+  background-color: var(--color-accent-600);
+  padding: 0.8rem 1.5rem;
+  border-radius: 7px;
+  text-decoration: none;
+  font-size: 1rem;
+  font-weight: 700;
+  transition: background-color 0.2s ease-in 0s;
+}
+
+#main-header #standard-nav #sign-up:hover {
+  background-color: var(--color-accent-300);
+}
 
 #main-header #standard-nav a:hover {
   color: var(--color-accent-300);
   text-decoration: underline;
 }
+
 #main-header #standard-nav #action-btn {
   display: inline-flex;
   align-items: center;
@@ -104,7 +138,7 @@
   text-decoration: none;
 }
 
-#main-header #standard-nav #search-wrapper {
+#main-header #standard-nav #profile-wrapper {
   display: flex;
   justify-content: center;
   align-items: center;

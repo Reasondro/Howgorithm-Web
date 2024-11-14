@@ -10,9 +10,11 @@ export default function Header() {
     } = await supabase.auth.getUser();
 
     if (user) {
-      alert(user.email);
+      // alert(user.email);
+
+      return true;
     } else {
-      alert("no user here");
+      return null;
     }
   }
   async function signOut() {
@@ -61,44 +63,56 @@ export default function Header() {
           <Link to="/quick-sort"> QUICK SORT </Link>
         </li>
         <li className="algo-type">
-          <Link to="/"> QUIZ </Link>
+          <Link to="/bubble-sort-quiz">QUIZ </Link>
         </li>
       </ul>
       <nav>
         <ul id="standard-nav">
-          <li>
-            <Link to="/sign-in">SIGN IN</Link>
-          </li>
-          <li>
-            <Link to="/binary-search" id="action-btn">
-              PLAY
-            </Link>
-          </li>
-          <li>
+          {/* <li>
             <button id="action-btn" onClick={checkUser}>
               Check user
             </button>
+          </li> */}
+          <li>
+            <Link id="sign-up" to="/sign-up">
+              Sign up
+            </Link>
           </li>
           <li>
+            <Link id="sign-in" to="/sign-in">
+              Sign in
+            </Link>
+          </li>
+
+          {/* <li>
+            <Link to="/binary-search" id="action-btn">
+              PLAY
+            </Link>
+          </li> */}
+
+          {/* <li>
             <button id="action-btn" onClick={signOut}>
               Sign Out
             </button>
-          </li>
-          <li id="search-wrapper">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-              strokeWidth="1.5"
-              stroke="currentColor"
-              className="size-6"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                d="m21 7.5-2.25-1.313M21 7.5v2.25m0-2.25-2.25 1.313M3 7.5l2.25-1.313M3 7.5l2.25 1.313M3 7.5v2.25m9 3 2.25-1.313M12 12.75l-2.25-1.313M12 12.75V15m0 6.75 2.25-1.313M12 21.75V19.5m0 2.25-2.25-1.313m0-16.875L12 2.25l2.25 1.313M21 14.25v2.25l-2.25 1.313m-13.5 0L3 16.5v-2.25"
-              />
-            </svg>
+          </li> */}
+
+          <li id="profile-wrapper">
+            <Link to="/">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke-width="1.5"
+                stroke="currentColor"
+                className="size-6"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  d="M17.982 18.725A7.488 7.488 0 0 0 12 15.75a7.488 7.488 0 0 0-5.982 2.975m11.963 0a9 9 0 1 0-11.963 0m11.963 0A8.966 8.966 0 0 1 12 21a8.966 8.966 0 0 1-5.982-2.275M15 9.75a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z"
+                />
+              </svg>
+            </Link>
           </li>
         </ul>
       </nav>
