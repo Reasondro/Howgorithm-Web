@@ -81,7 +81,7 @@ function computeBinarySearchSteps(
 export default function Quiz({ session }: { session: Session | null }) {
   const user = session?.user;
 
-  const [bubbleInitialArray, setBubbleInitialArray] = useState<number[]>([]);
+  const [, setBubbleInitialArray] = useState<number[]>([]);
   const [bubbleQuizSteps, setBubbleQuizSteps] = useState<
     { i: number; j: number; willSwap: boolean }[]
   >([]);
@@ -97,7 +97,7 @@ export default function Quiz({ session }: { session: Session | null }) {
   const [bubbleStepAttempted, setBubbleStepAttempted] = useState<boolean[]>([]);
 
   // Binary Search States
-  const [binaryInitialArray, setBinaryInitialArray] = useState<number[]>([]);
+  const [, setBinaryInitialArray] = useState<number[]>([]);
   const [binaryQuizSteps, setBinaryQuizSteps] = useState<
     {
       left: number;
