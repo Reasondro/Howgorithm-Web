@@ -3,89 +3,41 @@
   border-radius: 10px;
   box-shadow: 0 4px 14px rgba(0, 0, 0, 0.1);
   width: 100%;
-  max-width: 800px;
-  padding: 40px;
+  height: 40rem;
   box-sizing: border-box;
+  padding: 1rem;
+  display: grid;
+  grid-template-rows: 1fr 5fr auto;
+  /* align-items: center; */
 }
 
-.profile-header {
-  display: flex;
-  align-items: center;
-  margin-bottom: 30px;
-}
-
-.profile-avatar {
-  width: 150px;
-  height: 150px;
-  border-radius: 100%;
-  object-fit: cover;
-  border: 4px solid #3b82f6;
-  margin-right: 30px;
+/* .profile-header {
+  margin-bottom: 20px;
 }
 
 .profile-info {
-  flex: 1;
-}
-
-.profile-username {
-  margin: 0;
-  font-size: 2rem;
-  color: #3b82f6;
-}
-
-.profile-fullname {
-  margin: 5px 0;
-  font-size: 1.5rem;
-  color: #333;
-}
-
-.profile-email {
-  margin: 0;
-  color: #555;
-}
-
-.profile-bio,
-.profile-achievements {
-  margin-top: 20px;
-}
-
-.profile-bio h3,
-.profile-achievements h3 {
-  margin: 0 0 10px 0;
-  color: #3b82f6;
-  font-size: 1.2rem;
-}
-
-.profile-bio p {
-  margin: 0;
-  color: #333;
-  line-height: 1.5;
-}
-
-.profile-achievements ul {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-}
-
-.profile-achievements li {
-  background-color: #eff6ff;
-  border-left: 4px solid #3b82f6;
-  padding: 10px;
   margin-bottom: 10px;
-  color: #333;
-  border-radius: 5px;
+} */
+#info-text {
+  font-weight: bold;
+  font-size: 2.7rem;
+  color: var(--color-primary);
+  /* text-align: center; */
 }
 
-.profile-actions {
-  margin-top: 30px;
-  display: flex;
-  justify-content: space-between;
+.profile-email,
+.profile-score {
+  font-size: 1.5rem;
+  color: var(--color-grey-600);
+  margin: 5px 0;
 }
 
-.edit-profile-button,
+/* .profile-actions { */
+/* margin-top: 20px; */
+/* } */
+
 .sign-out-button {
-  background-color: #3b82f6;
+  background-color: rgb(88, 0, 0);
   color: white;
   border: none;
   border-radius: 5px;
@@ -93,48 +45,10 @@
   font-size: 1rem;
   cursor: pointer;
   transition: background-color 0.3s ease;
+  width: 10rem;
+  height: 3rem;
 }
 
-.edit-profile-button {
-  margin-right: 20px;
-}
-
-.edit-profile-button:hover,
 .sign-out-button:hover {
-  background-color: #1d4ed8;
-}
-
-/* Responsive styling */
-@media screen and (max-width: 600px) {
-  #main-wrapper {
-    padding: 20px;
-  }
-
-  .profile-header {
-    flex-direction: column;
-    align-items: center;
-  }
-
-  .profile-avatar {
-    margin-right: 0;
-    margin-bottom: 20px;
-  }
-
-  .profile-username {
-    font-size: 1.8rem;
-  }
-
-  .profile-fullname {
-    font-size: 1.3rem;
-  }
-
-  .profile-actions {
-    flex-direction: column;
-  }
-
-  .edit-profile-button,
-  .sign-out-button {
-    width: 100%;
-    margin: 10px 0;
-  }
+  background-color: rgb(163, 25, 25);
 }
