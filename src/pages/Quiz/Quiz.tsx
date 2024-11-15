@@ -90,6 +90,7 @@ export default function Quiz() {
   const [bubbleDisplayedArray, setBubbleDisplayedArray] = useState<number[]>(
     []
   );
+  const [bubbleStepAttempted, setBubbleStepAttempted] = useState<boolean[]>([]);
 
   // Binary Search States
   const [binaryInitialArray, setBinaryInitialArray] = useState<number[]>([]);
@@ -112,6 +113,7 @@ export default function Quiz() {
     []
   );
   const [binaryTarget, setBinaryTarget] = useState<number | null>(null);
+  const [binaryStepAttempted, setBinaryStepAttempted] = useState<boolean[]>([]);
 
   useEffect(() => {
     initializeBubbleSortQuiz();
@@ -129,6 +131,7 @@ export default function Quiz() {
     setBubbleUserScore(0);
     setBubbleAttemptMessage("");
     setBubbleIsQuizComplete(false);
+    setBubbleStepAttempted(Array(steps.length).fill(false));
   };
 
   // Initialize Binary Search Quiz
@@ -146,6 +149,7 @@ export default function Quiz() {
     setBinaryUserScore(0);
     setBinaryAttemptMessage("");
     setBinaryIsQuizComplete(false);
+    setBinaryStepAttempted(Array(steps.length).fill(false));
   };
 
   // Bubble Sort: Handle user's guess
@@ -157,7 +161,11 @@ export default function Quiz() {
     const correctAnswer = currentStep.willSwap ? "swap" : "dontSwap";
 
     if (userInput === correctAnswer) {
-      setBubbleUserScore(bubbleUserScore + 1);
+      // Check if step has been attempted
+      if (!bubbleStepAttempted[bubbleCurrentStepIndex]) {
+        // This is the first attempt for this step and it's correct
+        setBubbleUserScore((prevScore) => prevScore + 1);
+      }
       setBubbleAttemptMessage("✅ Correct!");
       if (currentStep.willSwap) {
         // Update the displayed array for bubble sort
@@ -167,8 +175,19 @@ export default function Quiz() {
         updatedArray[currentStep.j + 1] = temp;
         setBubbleDisplayedArray(updatedArray);
       }
+      // Mark this step as attempted
+      const updatedStepAttempted = [...bubbleStepAttempted];
+      updatedStepAttempted[bubbleCurrentStepIndex] = true;
+      setBubbleStepAttempted(updatedStepAttempted);
+
       proceedToNextBubbleStep();
     } else {
+      // If the user is incorrect on the first attempt of this step, mark it as attempted
+      if (!bubbleStepAttempted[bubbleCurrentStepIndex]) {
+        const updatedStepAttempted = [...bubbleStepAttempted];
+        updatedStepAttempted[bubbleCurrentStepIndex] = true;
+        setBubbleStepAttempted(updatedStepAttempted);
+      }
       setBubbleAttemptMessage("❌ Incorrect. Try again!");
     }
   };
@@ -191,15 +210,33 @@ export default function Quiz() {
       return;
 
     const currentStep = binaryQuizSteps[binaryCurrentStepIndex];
+    let correct = false;
+
     if (currentStep.found && userInput === "found") {
-      setBinaryUserScore(binaryUserScore + 1);
-      setBinaryAttemptMessage("✅ Correct! The target was found.");
-      proceedToNextBinaryStep();
+      correct = true;
     } else if (!currentStep.found && userInput === currentStep.direction) {
-      setBinaryUserScore(binaryUserScore + 1);
+      correct = true;
+    }
+
+    if (correct) {
+      // If this is the first attempt for this step and it's correct, increment score
+      if (!binaryStepAttempted[binaryCurrentStepIndex]) {
+        setBinaryUserScore((prevScore) => prevScore + 1);
+      }
       setBinaryAttemptMessage("✅ Correct!");
+      // Mark this step as attempted
+      const updatedStepAttempted = [...binaryStepAttempted];
+      updatedStepAttempted[binaryCurrentStepIndex] = true;
+      setBinaryStepAttempted(updatedStepAttempted);
+
       proceedToNextBinaryStep();
     } else {
+      // If the user is incorrect on the first attempt of this step, mark it as attempted
+      if (!binaryStepAttempted[binaryCurrentStepIndex]) {
+        const updatedStepAttempted = [...binaryStepAttempted];
+        updatedStepAttempted[binaryCurrentStepIndex] = true;
+        setBinaryStepAttempted(updatedStepAttempted);
+      }
       setBinaryAttemptMessage("❌ Incorrect. Try again!");
     }
   };
