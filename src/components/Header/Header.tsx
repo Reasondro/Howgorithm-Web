@@ -97,7 +97,7 @@ export default function Header() {
           </li> */}
 
           <li id="profile-wrapper">
-            <Link to="/">
+            <Link to="/dynamic-user">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"

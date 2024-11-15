@@ -9,7 +9,7 @@ function generateRandomArray(length: number, maxValue: number): number[] {
   return arr;
 }
 
-// Precompute the bubble sort steps (comparisons) for the given array
+//? Precompute for jawaban
 function computeBubbleSortSteps(array: number[]): {
   array: number[];
   steps: { i: number; j: number; willSwap: boolean }[];
@@ -47,7 +47,7 @@ export default function BubbleSortQuiz() {
 
   useEffect(() => {
     // Generate a random array when component mounts
-    const newArr = generateRandomArray(5, 100);
+    const newArr = generateRandomArray(7, 100);
     setInitialArray(newArr);
     const { steps } = computeBubbleSortSteps(newArr);
     setQuizSteps(steps);
@@ -60,10 +60,10 @@ export default function BubbleSortQuiz() {
     if (!currentStep) return;
 
     if (userThinksSwap === currentStep.willSwap) {
-      // User guessed correctly
+      // ?User correct
       setUserScore(userScore + 1);
       setAttemptMessage("✅ Correct!");
-      // If a swap is needed, update the displayed array
+      // ?If swap, update the displayed array
       if (currentStep.willSwap) {
         const updatedArray = [...displayedArray];
         const temp = updatedArray[currentStep.j];
@@ -73,7 +73,7 @@ export default function BubbleSortQuiz() {
       }
     } else {
       setAttemptMessage("❌ Incorrect. Try again!");
-      return; // Don't move to the next step if the answer is wrong
+      return; //? stay at the current step, if answe r is incorrect
     }
 
     // Move to the next step
@@ -102,7 +102,7 @@ export default function BubbleSortQuiz() {
     <main id="main-wrapper">
       <div className="quiz-container">
         <section className="quiz-header">
-          <h1>Bubble Sort Interactive Quiz</h1>
+          <h1>Bubble Sort Quiz</h1>
           <p>
             Let's test your understanding of bubble sort by simulating the steps
             yourself!

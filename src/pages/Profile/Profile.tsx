@@ -1,7 +1,7 @@
 export default function Profile() {
   return (
-    <div>
-      <h1>TESt</h1>
-    </div>
+    <main id="main-wrapper">
+      <h1 id="user-name"></h1>
+    </main>
   );
 }
