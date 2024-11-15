@@ -140,7 +140,7 @@ export default function Quiz({ session }: { session: Session | null }) {
 
   // Initialize Binary Search Quiz
   const initializeBinarySearchQuiz = () => {
-    const newArr = generateRandomArray(3, 100);
+    const newArr = generateRandomArray(11, 100);
     const sortedArr = [...newArr].sort((a, b) => a - b);
     const randomTarget =
       sortedArr[Math.floor(Math.random() * sortedArr.length)];
