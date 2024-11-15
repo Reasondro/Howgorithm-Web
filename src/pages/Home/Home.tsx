@@ -58,14 +58,14 @@ export default function Home() {
               Learn More
             </Link>
           </div>
-          <div className="algorithm-card">
-            {/* <!-- <img src="/images/quick-sort.png" alt="Quick Sort" /> --> */}
+          {/* <div className="algorithm-card">
+            <!-- <img src="/images/quick-sort.png" alt="Quick Sort" /> -->
             <h3>Quick Sort</h3>
             <p>Sort data quickly using divide and conquer.</p>
             <Link to="quick-sort" className="learn-more">
               Learn More
             </Link>
-          </div>
+          </div> */}
           <div className="algorithm-card">
             {/* <!-- <img src="/images/bubble-sort.png" alt="Bubble Sort" /> --> */}
             <h3>Bubble Sort</h3>
