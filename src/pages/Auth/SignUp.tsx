@@ -6,6 +6,7 @@ import "@/pages/Auth/SignUp.css";
 
 export default function SignUp() {
   const [email, setEmail] = useState("");
+  // const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const navigate = useNavigate();
@@ -23,6 +24,8 @@ export default function SignUp() {
       email,
       password,
     });
+
+    // await supabase.from("profiles").update({username: username}).eq("")
 
     if (error) {
       setErrorMsg(error.message);
@@ -49,6 +52,18 @@ export default function SignUp() {
               placeholder="Enter your email"
             />
           </div>
+          {/* <div className="form-group">
+            <label htmlFor="username">Username</label>
+            <input
+              type="text"
+              id="username"
+              className="form-input"
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
+              required
+              placeholder="Create your username"
+            />
+          </div> */}
           <div className="form-group">
             <label htmlFor="password">Password (min 6 characters)</label>
             <input

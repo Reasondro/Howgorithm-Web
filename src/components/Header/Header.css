@@ -139,6 +139,10 @@
   align-items: center;
 }
 
+#main-header .standard-nav #profile-wrapper svg {
+  width: 2.2rem;
+}
+
 #main-header .standard-nav svg {
   width: 1.5rem;
 }

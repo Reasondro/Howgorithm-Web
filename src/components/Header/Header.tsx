@@ -1,24 +1,9 @@
 import { Link } from "react-router-dom";
 import "@/components/Header/Header.css";
 
-import { supabase } from "@/utils/supabase/supabaseClient";
 import { Session } from "@supabase/supabase-js";
 
 export default function Header({ session }: { session: Session | null }) {
-  // async function checkUser() {
-  //   const {
-  //     data: { user },
-  //   } = await supabase.auth.getUser();
-
-  //   if (user) {
-  //     // alert(user.email);
-
-  //     return true;
-  //   } else {
-  //     return null;
-  //   }
-  // }
-
   return (
     <header id="main-header">
       {/* <nav id="hamburger-wrapper">
@@ -52,7 +37,7 @@ export default function Header({ session }: { session: Session | null }) {
           <Link to="/quick-sort"> QUICK SORT </Link>
         </li>
         <li className="algo-type">
-          <Link to="/bubble-sort-quiz">QUIZ </Link>
+          <Link to="/quiz">QUIZ </Link>
         </li>
       </ul>
       <nav>
@@ -94,12 +79,4 @@ export default function Header({ session }: { session: Session | null }) {
       </nav>
     </header>
   );
-}
-
-{
-  /* <li>
-            <button id="action-btn" onClick={signOut}>
-              Sign Out
-            </button>
-          </li> */
 }
