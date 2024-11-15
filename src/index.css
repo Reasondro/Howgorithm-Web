@@ -42,4 +42,5 @@ body {
   min-height: 100%;
   background-color: var(--color-white-300);
   color: var(--color-black-600);
+  overflow-y: scroll;
 }

@@ -2,37 +2,26 @@ import { Link } from "react-router-dom";
 import "@/components/Header/Header.css";
 
 import { supabase } from "@/utils/supabase/supabaseClient";
+import { Session } from "@supabase/supabase-js";
 
-export default function Header() {
-  async function checkUser() {
-    const {
-      data: { user },
-    } = await supabase.auth.getUser();
+export default function Header({ session }: { session: Session | null }) {
+  // async function checkUser() {
+  //   const {
+  //     data: { user },
+  //   } = await supabase.auth.getUser();
 
-    if (user) {
-      // alert(user.email);
+  //   if (user) {
+  //     // alert(user.email);
 
-      return true;
-    } else {
-      return null;
-    }
-  }
-  async function signOut() {
-    const {
-      data: { user },
-    } = await supabase.auth.getUser();
-
-    if (user) {
-      alert("Signing out " + user.email);
-      await supabase.auth.signOut();
-    } else {
-      alert("no user here");
-    }
-  }
+  //     return true;
+  //   } else {
+  //     return null;
+  //   }
+  // }
 
   return (
     <header id="main-header">
-      <nav id="hamburger-wrapper">
+      {/* <nav id="hamburger-wrapper">
         <svg
           xmlns="http://www.w3.org/2000/svg"
           fill="none"
@@ -47,7 +36,7 @@ export default function Header() {
             d="M3.75 5.25h16.5m-16.5 4.5h16.5m-16.5 4.5h16.5m-16.5 4.5h16.5"
           />
         </svg>
-      </nav>
+      </nav> */}
       <Link id="logo" to="/">
         HOWGORITHM
       </Link>
@@ -67,55 +56,50 @@ export default function Header() {
         </li>
       </ul>
       <nav>
-        <ul id="standard-nav">
-          {/* <li>
-            <button id="action-btn" onClick={checkUser}>
-              Check user
-            </button>
-          </li> */}
-          <li>
-            <Link id="sign-up" to="/sign-up">
-              Sign up
-            </Link>
-          </li>
-          <li>
-            <Link id="sign-in" to="/sign-in">
-              Sign in
-            </Link>
-          </li>
-
-          {/* <li>
-            <Link to="/binary-search" id="action-btn">
-              PLAY
-            </Link>
-          </li> */}
-
-          {/* <li>
-            <button id="action-btn" onClick={signOut}>
-              Sign Out
-            </button>
-          </li> */}
-
-          <li id="profile-wrapper">
-            <Link to="/dynamic-user">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke-width="1.5"
-                stroke="currentColor"
-                className="size-6"
-              >
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  d="M17.982 18.725A7.488 7.488 0 0 0 12 15.75a7.488 7.488 0 0 0-5.982 2.975m11.963 0a9 9 0 1 0-11.963 0m11.963 0A8.966 8.966 0 0 1 12 21a8.966 8.966 0 0 1-5.982-2.275M15 9.75a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z"
-                />
-              </svg>
-            </Link>
-          </li>
-        </ul>
+        {session === null ? (
+          <ul className="standard-nav">
+            <li>
+              <Link id="sign-up" to="/sign-up">
+                Sign up
+              </Link>
+            </li>
+            <li>
+              <Link id="sign-in" to="/sign-in">
+                Sign in
+              </Link>
+            </li>
+          </ul>
+        ) : (
+          <ul className="standard-nav">
+            <li id="profile-wrapper">
+              <Link to={`users/${session?.user.id}`}>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke-width="1.5"
+                  stroke="currentColor"
+                  className="size-6"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    d="M17.982 18.725A7.488 7.488 0 0 0 12 15.75a7.488 7.488 0 0 0-5.982 2.975m11.963 0a9 9 0 1 0-11.963 0m11.963 0A8.966 8.966 0 0 1 12 21a8.966 8.966 0 0 1-5.982-2.275M15 9.75a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z"
+                  />
+                </svg>
+              </Link>
+            </li>
+          </ul>
+        )}
       </nav>
     </header>
   );
+}
+
+{
+  /* <li>
+            <button id="action-btn" onClick={signOut}>
+              Sign Out
+            </button>
+          </li> */
 }

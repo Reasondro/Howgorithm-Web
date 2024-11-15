@@ -1,6 +1,7 @@
 #main-header {
   display: grid;
-  grid-template-columns: auto auto 1fr auto;
+  /* grid-template-columns: auto auto 1fr auto; */
+  grid-template-columns: auto 1fr auto;
   height: 100%;
   align-items: center;
   width: 100%;
@@ -37,6 +38,7 @@
   font-weight: 500;
   font-family: "Major Mono Display", sans-serif;
   color: var(--color-primary);
+  margin-left: 1rem;
 }
 
 #main-header #algo-categories {
@@ -65,30 +67,18 @@
   text-decoration: underline;
 }
 
-#main-header #standard-nav {
+#main-header .standard-nav {
   display: flex;
   justify-content: center;
   align-items: center;
   margin: 0 1rem;
 }
 
-#main-header #standard-nav li {
+#main-header .standard-nav li {
   margin-left: 1rem;
 }
 
-/* #main-header #standard-nav a {
-  color: var(--color-black-700);
-  font-family: "Oxanium", sans-serif;
-  font-size: 0.9rem;
-  font-weight: 700;
-  transition: color 0.4s ease-in 0s;
-}
-#main-header #standard-nav a:hover {
-  color: var(--color-accent-300);
-  text-decoration: underline;
-} */
-
-#main-header #standard-nav #sign-in {
+#main-header .standard-nav #sign-in {
   color: var(--color-black-700);
   padding: 0.8rem 1.5rem;
   border-radius: 7px;
@@ -98,11 +88,11 @@
   transition: background-color 0.2s ease-in 0s;
 }
 
-#main-header #standard-nav #sign-in:hover {
+#main-header .standard-nav #sign-in:hover {
   background-color: var(--color-grey-100);
 }
 
-#main-header #standard-nav #sign-up {
+#main-header .standard-nav #sign-up {
   color: var(--color-white-600);
   background-color: var(--color-accent-600);
   padding: 0.8rem 1.5rem;
@@ -113,16 +103,16 @@
   transition: background-color 0.2s ease-in 0s;
 }
 
-#main-header #standard-nav #sign-up:hover {
+#main-header .standard-nav #sign-up:hover {
   background-color: var(--color-accent-300);
 }
 
-#main-header #standard-nav a:hover {
+#main-header .standard-nav a:hover {
   color: var(--color-accent-300);
   text-decoration: underline;
 }
 
-#main-header #standard-nav #action-btn {
+#main-header .standard-nav #action-btn {
   display: inline-flex;
   align-items: center;
   color: var(--color-white-600);
@@ -133,17 +123,22 @@
   border-radius: 7px;
 }
 
-#main-header #standard-nav #action-btn:hover {
+#main-header .standard-nav #action-btn:hover {
   background-color: var(--color-accent-300);
   text-decoration: none;
 }
 
-#main-header #standard-nav #profile-wrapper {
+#main-header .standard-nav #profile-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+#main-header .standard-nav #profile-wrapper {
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
-#main-header #standard-nav svg {
+#main-header .standard-nav svg {
   width: 1.5rem;
 }

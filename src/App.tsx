@@ -14,8 +14,21 @@ import BubbleSort from "@/pages/BubbleSort/BubbleSort";
 import QuickSort from "./pages/QuickSort/QuickSort";
 import BubbleSortQuiz from "./pages/Quiz/BubbleSortQuiz";
 import Profile from "./pages/Profile/Profile";
+import { useEffect, useState } from "react";
+import { supabase } from "./utils/supabase/supabaseClient";
+import { Session } from "@supabase/supabase-js";
 
 function App() {
+  const [session, setSession] = useState<Session | null>(null);
+  useEffect(() => {
+    supabase.auth.getSession().then(({ data: { session } }) => {
+      setSession(session);
+    });
+
+    supabase.auth.onAuthStateChange((_event, session) => {
+      setSession(session);
+    });
+  }, []);
   return (
     <Router>
       <Routes>
@@ -23,13 +36,17 @@ function App() {
           <Route path="/sign-in" element={<SignIn />} />
           <Route path="/sign-up" element={<SignUp />} />
         </Route>
-        <Route element={<DefaultLayout />}>
+        <Route element={<DefaultLayout session={session} />}>
           <Route path="/" element={<Home />} />
           <Route path="/binary-search" element={<BinarySearch />} />
           <Route path="/bubble-sort" element={<BubbleSort />} />
           <Route path="/quick-sort" element={<QuickSort />} />
           <Route path="/bubble-sort-quiz" element={<BubbleSortQuiz />} />
-          <Route path="/dynamic-user" element={<Profile></Profile>} />
+          <Route
+            path={`users/${session?.user.id}`}
+            // path="/dynamic-user"
+            element={<Profile session={session} />}
+          />
         </Route>
       </Routes>
     </Router>
