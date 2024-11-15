@@ -76,294 +76,371 @@ function computeBinarySearchSteps(
 }
 
 export default function Quiz() {
-  const [algorithm, setAlgorithm] = useState<string>("Bubble Sort");
-  const [initialArray, setInitialArray] = useState<number[]>([]);
-  const [quizSteps, setQuizSteps] = useState<
-    | { i: number; j: number; willSwap: boolean }[]
-    | {
-        left: number;
-        right: number;
-        mid: number;
-        direction: string;
-        found: boolean;
-      }[]
+  // Bubble Sort States
+  const [bubbleInitialArray, setBubbleInitialArray] = useState<number[]>([]);
+  const [bubbleQuizSteps, setBubbleQuizSteps] = useState<
+    { i: number; j: number; willSwap: boolean }[]
   >([]);
-  const [currentStepIndex, setCurrentStepIndex] = useState<number>(0);
-  const [userScore, setUserScore] = useState<number>(0);
-  const [attemptMessage, setAttemptMessage] = useState<string>("");
-  const [isQuizComplete, setIsQuizComplete] = useState<boolean>(false);
-  const [displayedArray, setDisplayedArray] = useState<number[]>([]);
-  const [target, setTarget] = useState<number | null>(null);
+  const [bubbleCurrentStepIndex, setBubbleCurrentStepIndex] =
+    useState<number>(0);
+  const [bubbleUserScore, setBubbleUserScore] = useState<number>(0);
+  const [bubbleAttemptMessage, setBubbleAttemptMessage] = useState<string>("");
+  const [bubbleIsQuizComplete, setBubbleIsQuizComplete] =
+    useState<boolean>(false);
+  const [bubbleDisplayedArray, setBubbleDisplayedArray] = useState<number[]>(
+    []
+  );
 
-  // Initialize quiz data based on selected algorithm
+  // Binary Search States
+  const [binaryInitialArray, setBinaryInitialArray] = useState<number[]>([]);
+  const [binaryQuizSteps, setBinaryQuizSteps] = useState<
+    {
+      left: number;
+      right: number;
+      mid: number;
+      direction: string;
+      found: boolean;
+    }[]
+  >([]);
+  const [binaryCurrentStepIndex, setBinaryCurrentStepIndex] =
+    useState<number>(0);
+  const [binaryUserScore, setBinaryUserScore] = useState<number>(0);
+  const [binaryAttemptMessage, setBinaryAttemptMessage] = useState<string>("");
+  const [binaryIsQuizComplete, setBinaryIsQuizComplete] =
+    useState<boolean>(false);
+  const [binaryDisplayedArray, setBinaryDisplayedArray] = useState<number[]>(
+    []
+  );
+  const [binaryTarget, setBinaryTarget] = useState<number | null>(null);
+
   useEffect(() => {
-    initializeQuiz();
-  }, [algorithm]);
+    initializeBubbleSortQuiz();
+    initializeBinarySearchQuiz();
+  }, []);
 
-  const initializeQuiz = () => {
-    const newArr = generateRandomArray(5, 100);
-
-    if (algorithm === "Bubble Sort") {
-      const { steps, array } = computeBubbleSortSteps(newArr);
-      setInitialArray(newArr);
-      setQuizSteps(steps);
-      setDisplayedArray(array);
-    } else if (algorithm === "Binary Search") {
-      // For binary search, we also need a target to search for
-      const sortedArr = [...newArr].sort((a, b) => a - b);
-      const randomTarget =
-        sortedArr[Math.floor(Math.random() * sortedArr.length)];
-      setTarget(randomTarget);
-      const { steps, array } = computeBinarySearchSteps(
-        sortedArr,
-        randomTarget
-      );
-      setInitialArray(sortedArr);
-      setQuizSteps(steps);
-      setDisplayedArray(array);
-    }
-
-    setCurrentStepIndex(0);
-    setUserScore(0);
-    setAttemptMessage("");
-    setIsQuizComplete(false);
+  // Initialize Bubble Sort Quiz
+  const initializeBubbleSortQuiz = () => {
+    const newArr = generateRandomArray(6, 100);
+    const { steps } = computeBubbleSortSteps(newArr);
+    setBubbleInitialArray(newArr);
+    setBubbleQuizSteps(steps);
+    setBubbleDisplayedArray([...newArr]);
+    setBubbleCurrentStepIndex(0);
+    setBubbleUserScore(0);
+    setBubbleAttemptMessage("");
+    setBubbleIsQuizComplete(false);
   };
 
-  const currentStep = quizSteps[currentStepIndex];
-
-  const handleUserGuess = (userInput: string | boolean) => {
-    if (!currentStep) return;
-
-    if (algorithm === "Bubble Sort") {
-      const step = currentStep as { i: number; j: number; willSwap: boolean };
-      const correctAnswer = step.willSwap ? "swap" : "dontSwap";
-
-      if (userInput === correctAnswer) {
-        setUserScore(userScore + 1);
-        setAttemptMessage("✅ Correct!");
-        if (step.willSwap) {
-          // Update the displayed array for bubble sort
-          const updatedArray = [...displayedArray];
-          const temp = updatedArray[step.j];
-          updatedArray[step.j] = updatedArray[step.j + 1];
-          updatedArray[step.j + 1] = temp;
-          setDisplayedArray(updatedArray);
-        }
-        proceedToNextStep();
-      } else {
-        setAttemptMessage("❌ Incorrect. Try again!");
-      }
-    } else if (algorithm === "Binary Search") {
-      const step = currentStep as {
-        left: number;
-        right: number;
-        mid: number;
-        direction: string;
-        found: boolean;
-      };
-      if (step.found && userInput === "found") {
-        setUserScore(userScore + 1);
-        setAttemptMessage("✅ Correct! The target was found.");
-        proceedToNextStep();
-      } else if (!step.found && userInput === step.direction) {
-        setUserScore(userScore + 1);
-        setAttemptMessage("✅ Correct!");
-        proceedToNextStep();
-      } else {
-        setAttemptMessage("❌ Incorrect. Try again!");
-      }
-    }
+  // Initialize Binary Search Quiz
+  const initializeBinarySearchQuiz = () => {
+    const newArr = generateRandomArray(15, 100);
+    const sortedArr = [...newArr].sort((a, b) => a - b);
+    const randomTarget =
+      sortedArr[Math.floor(Math.random() * sortedArr.length)];
+    setBinaryTarget(randomTarget);
+    const { steps } = computeBinarySearchSteps(sortedArr, randomTarget);
+    setBinaryInitialArray(sortedArr);
+    setBinaryQuizSteps(steps);
+    setBinaryDisplayedArray(sortedArr);
+    setBinaryCurrentStepIndex(0);
+    setBinaryUserScore(0);
+    setBinaryAttemptMessage("");
+    setBinaryIsQuizComplete(false);
   };
 
-  const proceedToNextStep = () => {
-    if (currentStepIndex < quizSteps.length - 1) {
-      setCurrentStepIndex(currentStepIndex + 1);
-      setAttemptMessage("");
+  // Bubble Sort: Handle user's guess
+  const handleBubbleUserGuess = (userInput: "swap" | "dontSwap") => {
+    if (bubbleIsQuizComplete || !bubbleQuizSteps[bubbleCurrentStepIndex])
+      return;
+
+    const currentStep = bubbleQuizSteps[bubbleCurrentStepIndex];
+    const correctAnswer = currentStep.willSwap ? "swap" : "dontSwap";
+
+    if (userInput === correctAnswer) {
+      setBubbleUserScore(bubbleUserScore + 1);
+      setBubbleAttemptMessage("✅ Correct!");
+      if (currentStep.willSwap) {
+        // Update the displayed array for bubble sort
+        const updatedArray = [...bubbleDisplayedArray];
+        const temp = updatedArray[currentStep.j];
+        updatedArray[currentStep.j] = updatedArray[currentStep.j + 1];
+        updatedArray[currentStep.j + 1] = temp;
+        setBubbleDisplayedArray(updatedArray);
+      }
+      proceedToNextBubbleStep();
     } else {
-      // Quiz is complete
-      setIsQuizComplete(true);
-      setAttemptMessage("");
+      setBubbleAttemptMessage("❌ Incorrect. Try again!");
     }
   };
 
-  const handleRestartQuiz = () => {
-    initializeQuiz();
+  const proceedToNextBubbleStep = () => {
+    if (bubbleCurrentStepIndex < bubbleQuizSteps.length - 1) {
+      setBubbleCurrentStepIndex(bubbleCurrentStepIndex + 1);
+      setBubbleAttemptMessage("");
+    } else {
+      // Bubble Sort Quiz is complete
+      setBubbleIsQuizComplete(true);
+      setBubbleAttemptMessage("");
+      // TODO: Integrate bubble sort quiz final score with Supabase database here
+    }
+  };
+
+  // Binary Search: Handle user's guess
+  const handleBinaryUserGuess = (userInput: "left" | "right" | "found") => {
+    if (binaryIsQuizComplete || !binaryQuizSteps[binaryCurrentStepIndex])
+      return;
+
+    const currentStep = binaryQuizSteps[binaryCurrentStepIndex];
+    if (currentStep.found && userInput === "found") {
+      setBinaryUserScore(binaryUserScore + 1);
+      setBinaryAttemptMessage("✅ Correct! The target was found.");
+      proceedToNextBinaryStep();
+    } else if (!currentStep.found && userInput === currentStep.direction) {
+      setBinaryUserScore(binaryUserScore + 1);
+      setBinaryAttemptMessage("✅ Correct!");
+      proceedToNextBinaryStep();
+    } else {
+      setBinaryAttemptMessage("❌ Incorrect. Try again!");
+    }
+  };
+
+  const proceedToNextBinaryStep = () => {
+    if (binaryCurrentStepIndex < binaryQuizSteps.length - 1) {
+      setBinaryCurrentStepIndex(binaryCurrentStepIndex + 1);
+      setBinaryAttemptMessage("");
+    } else {
+      // Binary Search Quiz is complete
+      setBinaryIsQuizComplete(true);
+      setBinaryAttemptMessage("");
+      // TODO: Integrate binary search quiz final score with Supabase database here
+    }
+  };
+
+  const handleRestartBubbleQuiz = () => {
+    initializeBubbleSortQuiz();
+  };
+
+  const handleRestartBinaryQuiz = () => {
+    initializeBinarySearchQuiz();
   };
 
   return (
     <main id="main-wrapper">
-      <div className="quiz-container">
-        <section className="quiz-header">
-          <h1>{algorithm} Quiz</h1>
-          <p>
-            Test your understanding of {algorithm.toLowerCase()} by going
-            through the steps yourself!
-          </p>
-          <label className="algorithm-select">
-            <span>Select Algorithm: </span>
-            <select
-              value={algorithm}
-              onChange={(e) => setAlgorithm(e.target.value)}
-            >
-              <option value="Bubble Sort">Bubble Sort</option>
-              <option value="Binary Search">Binary Search</option>
-            </select>
-          </label>
-        </section>
-
-        {isQuizComplete ? (
-          <section className="quiz-results">
-            <h2>Quiz Complete!</h2>
+      <div className="combined-quiz-container">
+        {/* Bubble Sort Quiz Section */}
+        <div className="quiz-container bubble-sort-quiz">
+          <section className="quiz-header">
+            <h1>Bubble Sort Quiz</h1>
             <p>
-              You scored {userScore} out of {quizSteps.length} steps correctly
-              for the {algorithm} quiz.
+              Test your understanding of Bubble Sort by simulating the steps
+              yourself!
             </p>
-            <button onClick={handleRestartQuiz} className="restart-button">
-              Restart Quiz
-            </button>
-            {/* TODO: Integrate this final score with your Supabase database here */}
           </section>
-        ) : (
-          <section className="quiz-content">
-            {algorithm === "Bubble Sort" && (
-              <>
-                <div className="array-display">
-                  {displayedArray.map((value, index) => (
+
+          {bubbleIsQuizComplete ? (
+            <section className="quiz-results">
+              <h2>Quiz Complete!</h2>
+              <p>
+                You scored {bubbleUserScore} out of {bubbleQuizSteps.length}{" "}
+                steps correctly.
+              </p>
+              <button
+                onClick={handleRestartBubbleQuiz}
+                className="restart-button"
+              >
+                Restart Quiz
+              </button>
+            </section>
+          ) : (
+            <section className="quiz-content">
+              <div className="array-display">
+                {bubbleDisplayedArray.map((value, index) => {
+                  const currentStep = bubbleQuizSteps[bubbleCurrentStepIndex];
+                  const highlight =
+                    currentStep &&
+                    (index === currentStep.j || index === currentStep.j + 1);
+                  return (
                     <span
                       key={index}
                       className={`array-element ${
-                        currentStep &&
-                        (index === (currentStep as any).j ||
-                          index === (currentStep as any).j + 1)
-                          ? "highlight"
-                          : ""
+                        highlight ? "highlight" : ""
                       }`}
                     >
                       {value}
                     </span>
-                  ))}
-                </div>
-                {currentStep && (
-                  <>
-                    <p className="quiz-instructions">
-                      Current Step: Compare elements at positions{" "}
-                      <strong>{(currentStep as any).j}</strong> and{" "}
-                      <strong>{(currentStep as any).j + 1}</strong>.
-                    </p>
-                    <p>Should we swap these two elements?</p>
-                    <div className="buttons-container">
-                      <button onClick={() => handleUserGuess("swap")}>
-                        Swap
-                      </button>
-                      <button onClick={() => handleUserGuess("dontSwap")}>
-                        Don't Swap
-                      </button>
-                    </div>
-                    {attemptMessage && (
-                      <p className="attempt-message">{attemptMessage}</p>
-                    )}
-                    <p className="progress-info">
-                      Step {currentStepIndex + 1} of {quizSteps.length}
-                    </p>
-                  </>
-                )}
-              </>
-            )}
+                  );
+                })}
+              </div>
 
-            {algorithm === "Binary Search" && currentStep && (
-              <>
-                <div className="array-display">
-                  {(currentStep as any).direction !== "found" ? (
-                    <>
-                      {displayedArray.map((value, index) => {
-                        if (
-                          index >= (currentStep as any).left &&
-                          index <= (currentStep as any).right
-                        ) {
-                          return (
-                            <span
-                              key={index}
-                              className={`array-element ${
-                                index === (currentStep as any).mid
-                                  ? "highlight"
-                                  : ""
-                              }`}
-                            >
-                              {value}
-                            </span>
-                          );
-                        } else {
-                          return (
-                            <span
-                              key={index}
-                              className="array-element hidden-element"
-                            >
-                              {value}
-                            </span>
-                          );
-                        }
-                      })}
-                    </>
-                  ) : (
-                    displayedArray.map((value, index) => (
-                      <span
-                        key={index}
-                        className={`array-element ${
-                          index === (currentStep as any).mid ? "highlight" : ""
-                        }`}
-                      >
-                        {value}
-                      </span>
-                    ))
-                  )}
-                </div>
-                <p className="quiz-instructions">
-                  We are searching for the target value:{" "}
-                  <strong>{target}</strong>
-                </p>
-                {(currentStep as any).found ? (
-                  <p>
-                    The value at position {(currentStep as any).mid} matches the
-                    target. What happens next?
+              {bubbleQuizSteps[bubbleCurrentStepIndex] && (
+                <>
+                  <p className="quiz-instructions">
+                    Compare elements at positions{" "}
+                    <strong>{bubbleQuizSteps[bubbleCurrentStepIndex].j}</strong>{" "}
+                    and{" "}
+                    <strong>
+                      {bubbleQuizSteps[bubbleCurrentStepIndex].j + 1}
+                    </strong>
+                    .
                   </p>
-                ) : (
-                  <p>
-                    Compare target with the middle element at position{" "}
-                    <strong>{(currentStep as any).mid}</strong> which is{" "}
-                    <strong>{displayedArray[(currentStep as any).mid]}</strong>.
-                    Should we go left or right?
-                  </p>
-                )}
-                <div className="buttons-container">
-                  {(currentStep as any).found ? (
-                    <button onClick={() => handleUserGuess("found")}>
-                      Found Target
+                  <p>Should we swap these two elements?</p>
+                  <div className="buttons-container">
+                    <button onClick={() => handleBubbleUserGuess("swap")}>
+                      Swap
                     </button>
-                  ) : (
-                    <>
-                      <button onClick={() => handleUserGuess("left")}>
-                        Search Left Half
-                      </button>
-                      <button onClick={() => handleUserGuess("right")}>
-                        Search Right Half
-                      </button>
-                    </>
+                    <button onClick={() => handleBubbleUserGuess("dontSwap")}>
+                      Don't Swap
+                    </button>
+                  </div>
+                  {bubbleAttemptMessage && (
+                    <p className="attempt-message">{bubbleAttemptMessage}</p>
                   )}
-                </div>
-                {attemptMessage && (
-                  <p className="attempt-message">{attemptMessage}</p>
-                )}
-                <p className="progress-info">
-                  Step {currentStepIndex + 1} of {quizSteps.length}
-                </p>
-              </>
-            )}
+                  <p className="progress-info">
+                    Step {bubbleCurrentStepIndex + 1} of{" "}
+                    {bubbleQuizSteps.length}
+                  </p>
+                </>
+              )}
 
-            {!currentStep && !isQuizComplete && (
-              <p>Loading next step of the quiz...</p>
-            )}
+              {!bubbleQuizSteps[bubbleCurrentStepIndex] &&
+                !bubbleIsQuizComplete && (
+                  <p>Loading next step of the quiz...</p>
+                )}
+            </section>
+          )}
+        </div>
+
+        {/* Binary Search Quiz Section */}
+        <div className="quiz-container binary-search-quiz">
+          <section className="quiz-header">
+            <h1>Binary Search Quiz</h1>
+            <p>
+              Test your understanding of Binary Search with interactive steps!
+            </p>
           </section>
-        )}
+
+          {binaryIsQuizComplete ? (
+            <section className="quiz-results">
+              <h2>Quiz Complete!</h2>
+              <p>
+                You scored {binaryUserScore} out of {binaryQuizSteps.length}{" "}
+                steps correctly.
+              </p>
+              <button
+                onClick={handleRestartBinaryQuiz}
+                className="restart-button"
+              >
+                Restart Quiz
+              </button>
+            </section>
+          ) : (
+            <section className="quiz-content">
+              <div className="array-display">
+                {binaryQuizSteps[binaryCurrentStepIndex] ? (
+                  binaryDisplayedArray.map((value, index) => {
+                    const currentStep = binaryQuizSteps[binaryCurrentStepIndex];
+                    if (currentStep.direction !== "found") {
+                      const inRange =
+                        index >= currentStep.left && index <= currentStep.right;
+                      const highlight = index === currentStep.mid;
+                      return (
+                        <span
+                          key={index}
+                          className={`array-element ${
+                            inRange
+                              ? highlight
+                                ? "highlight"
+                                : ""
+                              : "hidden-element"
+                          }`}
+                        >
+                          {value}
+                        </span>
+                      );
+                    } else {
+                      const highlight = index === currentStep.mid;
+                      return (
+                        <span
+                          key={index}
+                          className={`array-element ${
+                            highlight ? "highlight" : ""
+                          }`}
+                        >
+                          {value}
+                        </span>
+                      );
+                    }
+                  })
+                ) : (
+                  <p>Loading array...</p>
+                )}
+              </div>
+
+              {binaryQuizSteps[binaryCurrentStepIndex] && (
+                <>
+                  <p className="quiz-instructions">
+                    We are searching for the target value:{" "}
+                    <strong>{binaryTarget}</strong>
+                  </p>
+                  {binaryQuizSteps[binaryCurrentStepIndex].found ? (
+                    <p>
+                      The value at position{" "}
+                      <strong>
+                        {binaryQuizSteps[binaryCurrentStepIndex].mid}
+                      </strong>{" "}
+                      matches the target. What happens next?
+                    </p>
+                  ) : (
+                    <p>
+                      Compare target with the middle element at position{" "}
+                      <strong>
+                        {binaryQuizSteps[binaryCurrentStepIndex].mid}
+                      </strong>{" "}
+                      which is{" "}
+                      <strong>
+                        {
+                          binaryDisplayedArray[
+                            binaryQuizSteps[binaryCurrentStepIndex].mid
+                          ]
+                        }
+                      </strong>
+                      . Should we go left or right?
+                    </p>
+                  )}
+
+                  <div className="buttons-container">
+                    {binaryQuizSteps[binaryCurrentStepIndex].found ? (
+                      <button onClick={() => handleBinaryUserGuess("found")}>
+                        Found Target
+                      </button>
+                    ) : (
+                      <>
+                        <button onClick={() => handleBinaryUserGuess("left")}>
+                          Search Left Half
+                        </button>
+                        <button onClick={() => handleBinaryUserGuess("right")}>
+                          Search Right Half
+                        </button>
+                      </>
+                    )}
+                  </div>
+                  {binaryAttemptMessage && (
+                    <p className="attempt-message">{binaryAttemptMessage}</p>
+                  )}
+                  <p className="progress-info">
+                    Step {binaryCurrentStepIndex + 1} of{" "}
+                    {binaryQuizSteps.length}
+                  </p>
+                </>
+              )}
+
+              {!binaryQuizSteps[binaryCurrentStepIndex] &&
+                !binaryIsQuizComplete && (
+                  <p>Loading next step of the quiz...</p>
+                )}
+            </section>
+          )}
+        </div>
       </div>
     </main>
   );

@@ -7,13 +7,6 @@
   --quiz-font-family: "DM Sans", sans-serif;
 }
 
-.combined-quiz-container {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 3rem;
-  margin-bottom: 12rem;
-}
-
 .quiz-container {
   background-color: white;
   border-radius: 10px;
