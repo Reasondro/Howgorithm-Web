@@ -140,7 +140,7 @@ export default function Quiz({ session }: { session: Session | null }) {
 
   // Initialize Binary Search Quiz
   const initializeBinarySearchQuiz = () => {
-    const newArr = generateRandomArray(15, 100);
+    const newArr = generateRandomArray(3, 100);
     const sortedArr = [...newArr].sort((a, b) => a - b);
     const randomTarget =
       sortedArr[Math.floor(Math.random() * sortedArr.length)];
@@ -351,7 +351,7 @@ export default function Quiz({ session }: { session: Session | null }) {
               <h2>Quiz Complete!</h2>
               <p>
                 You scored {bubbleUserScore} out of {bubbleQuizSteps.length}{" "}
-                steps correctly.
+                steps correctly. See your scores in your profile page!
               </p>
               <button
                 onClick={handleRestartBubbleQuiz}
@@ -433,7 +433,7 @@ export default function Quiz({ session }: { session: Session | null }) {
               <h2>Quiz Complete!</h2>
               <p>
                 You scored {binaryUserScore} out of {binaryQuizSteps.length}{" "}
-                steps correctly.
+                steps correctly. See your scores in your profile page!
               </p>
               <button
                 onClick={handleRestartBinaryQuiz}

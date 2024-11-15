@@ -1,12 +1,10 @@
 import { Session } from "@supabase/supabase-js";
-// import {  useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 import "@/pages/Profile/Profile.css"; // We'll create this CSS file for styling
 import { supabase } from "@/utils/supabase/supabaseClient";
 
 export default function Profile({ session }: { session: Session | null }) {
-  // const [email, setEmail] = useState(null);
   const navigate = useNavigate();
 
   async function signOut() {
@@ -38,13 +36,11 @@ export default function Profile({ session }: { session: Session | null }) {
       <div className="profile-page-container">
         <div className="profile-header">
           <div className="profile-info">
-            {/* <h1 className="profile-username">{profileData.username}</h1> */}
             <p className="profile-email">Email: {session.user.email}</p>
           </div>
         </div>
 
         <div className="profile-actions">
-          {/* <button className="edit-profile-button">Edit Profile</button> */}
           <button className="sign-out-button" onClick={signOut}>
             Sign out
           </button>
