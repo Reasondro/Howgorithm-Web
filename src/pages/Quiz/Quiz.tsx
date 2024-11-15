@@ -1,5 +1,9 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { useState, useEffect } from "react";
+
 import "@/pages/Quiz/Quiz.css";
+import { supabase } from "@/utils/supabase/supabaseClient";
+import { Session } from "@supabase/supabase-js";
 
 function generateRandomArray(length: number, maxValue: number): number[] {
   const arr: number[] = [];
@@ -75,8 +79,9 @@ function computeBinarySearchSteps(
   return { array: arrCopy, steps };
 }
 
-export default function Quiz() {
-  // Bubble Sort States
+export default function Quiz({ session }: { session: Session | null }) {
+  const user = session?.user;
+
   const [bubbleInitialArray, setBubbleInitialArray] = useState<number[]>([]);
   const [bubbleQuizSteps, setBubbleQuizSteps] = useState<
     { i: number; j: number; willSwap: boolean }[]
@@ -192,7 +197,7 @@ export default function Quiz() {
     }
   };
 
-  const proceedToNextBubbleStep = () => {
+  const proceedToNextBubbleStep = async () => {
     if (bubbleCurrentStepIndex < bubbleQuizSteps.length - 1) {
       setBubbleCurrentStepIndex(bubbleCurrentStepIndex + 1);
       setBubbleAttemptMessage("");
@@ -200,7 +205,30 @@ export default function Quiz() {
       // Bubble Sort Quiz is complete
       setBubbleIsQuizComplete(true);
       setBubbleAttemptMessage("");
-      // TODO: Integrate bubble sort quiz final score with Supabase database here
+      // Integrate bubble sort quiz final score with Supabase database here
+      if (user) {
+        const { data, error } = await supabase
+          .from("progress")
+          .update({
+            bubble_score: supabase.rpc("increment_score", {
+              table: "progress",
+              column: "bubble_score",
+              increment_by: bubbleUserScore,
+            }),
+            total_score: supabase.rpc("increment_score", {
+              table: "progress",
+              column: "total_score",
+              increment_by: bubbleUserScore,
+            }),
+          })
+          .eq("id", user.id);
+
+        if (error) {
+          console.error("Error updating bubble score:", error);
+        } else {
+          console.log("Bubble scores updated successfully:", data);
+        }
+      }
     }
   };
 
@@ -241,7 +269,7 @@ export default function Quiz() {
     }
   };
 
-  const proceedToNextBinaryStep = () => {
+  const proceedToNextBinaryStep = async () => {
     if (binaryCurrentStepIndex < binaryQuizSteps.length - 1) {
       setBinaryCurrentStepIndex(binaryCurrentStepIndex + 1);
       setBinaryAttemptMessage("");
@@ -249,7 +277,31 @@ export default function Quiz() {
       // Binary Search Quiz is complete
       setBinaryIsQuizComplete(true);
       setBinaryAttemptMessage("");
-      // TODO: Integrate binary search quiz final score with Supabase database here
+      // Integrate binary search quiz final score with Supabase database here
+      if (user) {
+        // Update user's binary_score and total_score
+        const { data, error } = await supabase
+          .from("progress")
+          .update({
+            binary_score: supabase.rpc("increment_score", {
+              table: "progress",
+              column: "binary_score",
+              increment_by: binaryUserScore,
+            }),
+            total_score: supabase.rpc("increment_score", {
+              table: "progress",
+              column: "total_score",
+              increment_by: binaryUserScore,
+            }),
+          })
+          .eq("id", user.id);
+
+        if (error) {
+          console.error("Error updating binary score:", error);
+        } else {
+          console.log("Binary scores updated successfully:", data);
+        }
+      }
     }
   };
 

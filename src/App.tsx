@@ -42,7 +42,7 @@ function App() {
           <Route path="/binary-search" element={<BinarySearch />} />
           <Route path="/bubble-sort" element={<BubbleSort />} />
           <Route path="/quick-sort" element={<QuickSort />} />
-          <Route path="/quiz" element={<Quiz />} />
+          <Route path="/quiz" element={<Quiz session={session} />} />
           <Route
             path={`users/${session?.user.id}`}
             // path="/dynamic-user"
