@@ -1,9 +1,8 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { useState, useEffect } from "react";
-
-import "@/pages/Quiz/Quiz.css";
 import { supabase } from "@/utils/supabase/supabaseClient";
 import { Session } from "@supabase/supabase-js";
+import "@/pages/Quiz/Quiz.css";
 
 function generateRandomArray(length: number, maxValue: number): number[] {
   const arr: number[] = [];
@@ -205,28 +204,39 @@ export default function Quiz({ session }: { session: Session | null }) {
       // Bubble Sort Quiz is complete
       setBubbleIsQuizComplete(true);
       setBubbleAttemptMessage("");
+
       // Integrate bubble sort quiz final score with Supabase database here
       if (user) {
-        const { data, error } = await supabase
+        // Step 1: Fetch the current bubble_score and total_score from the progress table
+        const { data: currentProgress, error: fetchError } = await supabase
           .from("progress")
-          .update({
-            bubble_score: supabase.rpc("increment_score", {
-              table: "progress",
-              column: "bubble_score",
-              increment_by: bubbleUserScore,
-            }),
-            total_score: supabase.rpc("increment_score", {
-              table: "progress",
-              column: "total_score",
-              increment_by: bubbleUserScore,
-            }),
-          })
-          .eq("id", user.id);
+          .select("bubble_score, total_score")
+          .eq("id", user.id)
+          .single();
 
-        if (error) {
-          console.error("Error updating bubble score:", error);
-        } else {
-          console.log("Bubble scores updated successfully:", data);
+        if (fetchError) {
+          console.error("Error fetching current bubble score:", fetchError);
+        } else if (currentProgress) {
+          // Step 2: Calculate the new scores by adding the bubbleUserScore to the current scores
+          const newBubbleScore =
+            (currentProgress.bubble_score || 0) + bubbleUserScore;
+          const newTotalScore =
+            (currentProgress.total_score || 0) + bubbleUserScore;
+
+          // Step 3: Update the progress table with the new scores
+          const { data: updateData, error: updateError } = await supabase
+            .from("progress")
+            .update({
+              bubble_score: newBubbleScore,
+              total_score: newTotalScore,
+            })
+            .eq("id", user.id);
+
+          if (updateError) {
+            console.error("Error updating bubble score:", updateError);
+          } else {
+            console.log("Bubble scores updated successfully:", updateData);
+          }
         }
       }
     }
@@ -277,29 +287,39 @@ export default function Quiz({ session }: { session: Session | null }) {
       // Binary Search Quiz is complete
       setBinaryIsQuizComplete(true);
       setBinaryAttemptMessage("");
+
       // Integrate binary search quiz final score with Supabase database here
       if (user) {
-        // Update user's binary_score and total_score
-        const { data, error } = await supabase
+        // Step 1: Fetch the current binary_score and total_score from the progress table
+        const { data: currentProgress, error: fetchError } = await supabase
           .from("progress")
-          .update({
-            binary_score: supabase.rpc("increment_score", {
-              table: "progress",
-              column: "binary_score",
-              increment_by: binaryUserScore,
-            }),
-            total_score: supabase.rpc("increment_score", {
-              table: "progress",
-              column: "total_score",
-              increment_by: binaryUserScore,
-            }),
-          })
-          .eq("id", user.id);
+          .select("binary_score, total_score")
+          .eq("id", user.id)
+          .single();
 
-        if (error) {
-          console.error("Error updating binary score:", error);
-        } else {
-          console.log("Binary scores updated successfully:", data);
+        if (fetchError) {
+          console.error("Error fetching current binary score:", fetchError);
+        } else if (currentProgress) {
+          // Step 2: Calculate the new scores by adding the binaryUserScore to the current scores
+          const newBinaryScore =
+            (currentProgress.binary_score || 0) + binaryUserScore;
+          const newTotalScore =
+            (currentProgress.total_score || 0) + binaryUserScore;
+
+          // Step 3: Update the progress table with the new scores
+          const { data: updateData, error: updateError } = await supabase
+            .from("progress")
+            .update({
+              binary_score: newBinaryScore,
+              total_score: newTotalScore,
+            })
+            .eq("id", user.id);
+
+          if (updateError) {
+            console.error("Error updating binary score:", updateError);
+          } else {
+            console.log("Binary scores updated successfully:", updateData);
+          }
         }
       }
     }
