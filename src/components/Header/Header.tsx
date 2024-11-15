@@ -33,9 +33,9 @@ export default function Header({ session }: { session: Session | null }) {
         <li className="algo-type">
           <Link to="/bubble-sort"> BUBBLE SORT </Link>
         </li>
-        <li className="algo-type">
+        {/* <li className="algo-type">
           <Link to="/quick-sort"> QUICK SORT </Link>
-        </li>
+        </li> */}
         <li className="algo-type">
           <Link to="/quiz">QUIZ </Link>
         </li>
