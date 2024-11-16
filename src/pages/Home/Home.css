@@ -2,7 +2,6 @@
   display: flex;
   align-items: center;
   padding: 50px;
-  background-color: #f5f5f5;
 }
 
 .hero-content {
@@ -21,7 +20,7 @@
 
 .cta-button {
   padding: 15px 30px;
-  background-color: #007acc;
+  background-color: var(--color-primary);
   color: #fff;
   text-decoration: none;
   border-radius: 5px;
@@ -74,7 +73,6 @@
 
 #popular-algorithms {
   padding: 50px;
-  background-color: #fafafa;
 }
 
 #popular-algorithms h2 {
@@ -91,7 +89,7 @@
 
 .algorithm-card {
   flex: 1 1 30%;
-  background-color: #fff;
+  background-color: var(--color-white-300);
   margin: 20px;
   padding: 20px;
   text-align: center;
@@ -117,8 +115,11 @@
 
 .learn-more {
   text-decoration: none;
-  color: #007acc;
+  color: var(--color-accent-300);
   font-weight: bold;
+}
+.learn-more:hover {
+  text-decoration: underline;
 }
 
 #motto {

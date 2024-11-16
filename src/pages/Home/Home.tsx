@@ -78,7 +78,7 @@ export default function Home() {
       </section>
 
       <section id="motto">
-        <h2>Happy learning!</h2>
+        <h2>New algorithm are in the works. Stay tuned!</h2>
       </section>
     </main>
   );
