@@ -27,7 +27,7 @@ export default function SignUp() {
     if (error) {
       setErrorMsg(error.message);
     } else {
-      navigate("/"); // Redirect to home page after successful sign-up
+      navigate("/");
     }
   };
 

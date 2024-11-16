@@ -19,7 +19,7 @@ export default function SignIn() {
     if (error) {
       setErrorMsg(error.message);
     } else {
-      navigate("/"); // Redirect to home page after successful sign-in
+      navigate("/");
     }
   };
 
@@ -44,9 +44,9 @@ export default function SignIn() {
           <div className="form-group">
             <label htmlFor="password">
               Password
-              <Link to="/forgot-password" className="forgot-password">
+              {/* <Link to="/forgot-password" className="forgot-password">
                 Forgot?
-              </Link>
+              </Link> */}
             </label>
             <input
               type="password"
