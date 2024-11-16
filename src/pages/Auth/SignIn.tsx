@@ -2,7 +2,7 @@
 import React, { useState } from "react";
 import { supabase } from "@/utils/supabase/supabaseClient";
 import { Link, useNavigate } from "react-router-dom";
-import "@/pages/Auth/SignIn.css";
+import "@/pages/Auth/Auth.css";
 
 export default function SignIn() {
   const [email, setEmail] = useState("");
@@ -24,9 +24,10 @@ export default function SignIn() {
   };
 
   return (
-    <div className="signin-container">
-      <div className="signin-form">
-        <h2>Sign In</h2>
+    <div className="auth-container">
+      <div className="auth-form">
+        <h2>Welcome back</h2>
+        <h3>Sign in to your account</h3>
         {errorMsg && <div className="error-message">{errorMsg}</div>}
         <form onSubmit={handleSignIn}>
           <div className="form-group">
@@ -38,7 +39,7 @@ export default function SignIn() {
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               required
-              placeholder="Enter your email"
+              placeholder="you@email.com"
             />
           </div>
           <div className="form-group">
@@ -55,10 +56,10 @@ export default function SignIn() {
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               required
-              placeholder="Enter your password"
+              placeholder="••••••••"
             />
           </div>
-          <button type="submit" className="submit-button">
+          <button type="submit" className="auth-button">
             Sign In
           </button>
         </form>
@@ -68,6 +69,12 @@ export default function SignIn() {
             Sign Up
           </Link>
         </p>
+      </div>
+      <div id="auth-image">
+        <img
+          src="https://images.unsplash.com/photo-1598942314842-4cb79089e4d5?q=80&w=2673&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+          alt=""
+        />
       </div>
     </div>
   );

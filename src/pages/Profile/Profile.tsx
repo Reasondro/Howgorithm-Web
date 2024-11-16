@@ -1,28 +1,25 @@
 import { useState, useEffect } from "react";
 import { Session } from "@supabase/supabase-js";
 import { useNavigate } from "react-router-dom";
-import "@/pages/Profile/Profile.css"; // We'll create this CSS file for styling
+import "@/pages/Profile/Profile.css";
 import { supabase } from "@/utils/supabase/supabaseClient";
 
 export default function Profile({ session }: { session: Session | null }) {
   const navigate = useNavigate();
   const user = session?.user;
 
-  // State to store progress data
   const [progress, setProgress] = useState<{
     bubble_score: number | null;
     binary_score: number | null;
     total_score: number | null;
   } | null>(null);
 
-  // Fetch user's progress data when the component mounts or session changes
   useEffect(() => {
     if (user) {
       fetchUserProgress();
     }
   }, [user]);
 
-  // Function to fetch user's progress data from the database
   async function fetchUserProgress() {
     if (!user) return;
     const { data, error } = await supabase
@@ -38,7 +35,6 @@ export default function Profile({ session }: { session: Session | null }) {
     }
   }
 
-  // Sign out function
   async function signOut() {
     const {
       data: { user },
@@ -52,7 +48,6 @@ export default function Profile({ session }: { session: Session | null }) {
     }
   }
 
-  // If no session, prompt the user to log in
   if (!session) {
     return (
       <main id="main-wrapper">
@@ -64,7 +59,7 @@ export default function Profile({ session }: { session: Session | null }) {
     );
   }
 
-  // Extract scores from progress state or default to 0
+  //? exxtract scores progress  or default to 0 (kalo noull)
   const bubbleScore = progress?.bubble_score ?? 0;
   const binaryScore = progress?.binary_score ?? 0;
   const totalScore = progress?.total_score ?? 0;

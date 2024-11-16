@@ -4,8 +4,8 @@ import "@/pages/BubbleSort/BubbleSort.css";
 
 interface Iteration {
   array: number[];
-  i: number; // Outer loop index
-  j: number; // Inner loop index
+  i: number;
+  j: number;
   swapped: boolean;
 }
 

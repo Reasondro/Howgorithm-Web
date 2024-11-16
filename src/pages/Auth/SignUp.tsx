@@ -1,8 +1,7 @@
-// SignUp.tsx
 import React, { useState } from "react";
 import { supabase } from "@/utils/supabase/supabaseClient";
 import { Link, useNavigate } from "react-router-dom";
-import "@/pages/Auth/SignUp.css";
+import "@/pages/Auth/Auth.css";
 
 export default function SignUp() {
   const [email, setEmail] = useState("");
@@ -32,9 +31,10 @@ export default function SignUp() {
   };
 
   return (
-    <div className="signup-container">
-      <div className="signup-form">
-        <h2>Sign Up</h2>
+    <div className="auth-container">
+      <div className="auth-form">
+        <h2>Get started</h2>
+        <h3>Create your account</h3>
         {errorMsg && <div className="error-message">{errorMsg}</div>}
         <form onSubmit={handleSignUp}>
           <div className="form-group">
@@ -46,7 +46,7 @@ export default function SignUp() {
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               required
-              placeholder="Enter your email"
+              placeholder="you@email.com"
             />
           </div>
 
@@ -60,7 +60,7 @@ export default function SignUp() {
               onChange={(e) => setPassword(e.target.value)}
               required
               minLength={6}
-              placeholder="Create a password"
+              placeholder="••••••••"
             />
           </div>
           <div className="form-group">
@@ -73,10 +73,10 @@ export default function SignUp() {
               onChange={(e) => setConfirmPassword(e.target.value)}
               required
               minLength={6}
-              placeholder="Confirm your password"
+              placeholder="••••••••"
             />
           </div>
-          <button type="submit" className="submit-button">
+          <button type="submit" className="auth-button">
             Sign Up
           </button>
         </form>
@@ -86,6 +86,12 @@ export default function SignUp() {
             Sign In
           </Link>
         </p>
+      </div>
+      <div id="auth-image">
+        <img
+          src="https://images.unsplash.com/photo-1598942314842-4cb79089e4d5?q=80&w=2673&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+          alt=""
+        />
       </div>
     </div>
   );

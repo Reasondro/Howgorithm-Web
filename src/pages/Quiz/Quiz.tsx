@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import { useState, useEffect } from "react";
 import { supabase } from "@/utils/supabase/supabaseClient";
 import { Session } from "@supabase/supabase-js";
@@ -12,7 +11,6 @@ function generateRandomArray(length: number, maxValue: number): number[] {
   return arr;
 }
 
-// Bubble Sort Step Computation
 function computeBubbleSortSteps(array: number[]): {
   array: number[];
   steps: { i: number; j: number; willSwap: boolean }[];
@@ -37,7 +35,6 @@ function computeBubbleSortSteps(array: number[]): {
   return { array: arrCopy, steps };
 }
 
-// Binary Search Step Computation
 function computeBinarySearchSteps(
   array: number[],
   target: number
@@ -96,7 +93,6 @@ export default function Quiz({ session }: { session: Session | null }) {
   );
   const [bubbleStepAttempted, setBubbleStepAttempted] = useState<boolean[]>([]);
 
-  // Binary Search States
   const [, setBinaryInitialArray] = useState<number[]>([]);
   const [binaryQuizSteps, setBinaryQuizSteps] = useState<
     {
@@ -124,7 +120,6 @@ export default function Quiz({ session }: { session: Session | null }) {
     initializeBinarySearchQuiz();
   }, []);
 
-  // Initialize Bubble Sort Quiz
   const initializeBubbleSortQuiz = () => {
     const newArr = generateRandomArray(6, 100);
     const { steps } = computeBubbleSortSteps(newArr);
@@ -138,7 +133,6 @@ export default function Quiz({ session }: { session: Session | null }) {
     setBubbleStepAttempted(Array(steps.length).fill(false));
   };
 
-  // Initialize Binary Search Quiz
   const initializeBinarySearchQuiz = () => {
     const newArr = generateRandomArray(11, 100);
     const sortedArr = [...newArr].sort((a, b) => a - b);
@@ -156,7 +150,6 @@ export default function Quiz({ session }: { session: Session | null }) {
     setBinaryStepAttempted(Array(steps.length).fill(false));
   };
 
-  // Bubble Sort: Handle user's guess
   const handleBubbleUserGuess = (userInput: "swap" | "dontSwap") => {
     if (bubbleIsQuizComplete || !bubbleQuizSteps[bubbleCurrentStepIndex])
       return;
@@ -165,28 +158,28 @@ export default function Quiz({ session }: { session: Session | null }) {
     const correctAnswer = currentStep.willSwap ? "swap" : "dontSwap";
 
     if (userInput === correctAnswer) {
-      // Check if step has been attempted
+      //? check if userstep attempted
       if (!bubbleStepAttempted[bubbleCurrentStepIndex]) {
-        // This is the first attempt for this step and it's correct
+        //?  first attempt for this step and it's correct
         setBubbleUserScore((prevScore) => prevScore + 1);
       }
       setBubbleAttemptMessage("✅ Correct!");
       if (currentStep.willSwap) {
-        // Update the displayed array for bubble sort
+        //? updatee ddipsaly array
         const updatedArray = [...bubbleDisplayedArray];
         const temp = updatedArray[currentStep.j];
         updatedArray[currentStep.j] = updatedArray[currentStep.j + 1];
         updatedArray[currentStep.j + 1] = temp;
         setBubbleDisplayedArray(updatedArray);
       }
-      // Mark this step as attempted
+      //? marrk  step as attempted
       const updatedStepAttempted = [...bubbleStepAttempted];
       updatedStepAttempted[bubbleCurrentStepIndex] = true;
       setBubbleStepAttempted(updatedStepAttempted);
 
       proceedToNextBubbleStep();
     } else {
-      // If the user is incorrect on the first attempt of this step, mark it as attempted
+      //? user is incorrect on the first attempt of the step,thne alos mark it as attempted
       if (!bubbleStepAttempted[bubbleCurrentStepIndex]) {
         const updatedStepAttempted = [...bubbleStepAttempted];
         updatedStepAttempted[bubbleCurrentStepIndex] = true;
@@ -201,13 +194,13 @@ export default function Quiz({ session }: { session: Session | null }) {
       setBubbleCurrentStepIndex(bubbleCurrentStepIndex + 1);
       setBubbleAttemptMessage("");
     } else {
-      // Bubble Sort Quiz is complete
+      //? bubble Sort Quiz is complete
       setBubbleIsQuizComplete(true);
       setBubbleAttemptMessage("");
 
-      // Integrate bubble sort quiz final score with Supabase database here
+      //? bubble sort quiz final score with supabase database
       if (user) {
-        // Step 1: Fetch the current bubble_score and total_score from the progress table
+        //? sstep 1: fetch current bubble_score and total_score from progress table
         const { data: currentProgress, error: fetchError } = await supabase
           .from("progress")
           .select("bubble_score, total_score")
@@ -217,13 +210,13 @@ export default function Quiz({ session }: { session: Session | null }) {
         if (fetchError) {
           console.error("Error fetching current bubble score:", fetchError);
         } else if (currentProgress) {
-          // Step 2: Calculate the new scores by adding the bubbleUserScore to the current scores
+          //? stpe 2: clacultae new scores --> adding  bubbleUserScore to the current scores
           const newBubbleScore =
             (currentProgress.bubble_score || 0) + bubbleUserScore;
           const newTotalScore =
             (currentProgress.total_score || 0) + bubbleUserScore;
 
-          // Step 3: Update the progress table with the new scores
+          //? step 3: updatee  progress table with  new scores
           const { data: updateData, error: updateError } = await supabase
             .from("progress")
             .update({
@@ -242,7 +235,6 @@ export default function Quiz({ session }: { session: Session | null }) {
     }
   };
 
-  // Binary Search: Handle user's guess
   const handleBinaryUserGuess = (userInput: "left" | "right" | "found") => {
     if (binaryIsQuizComplete || !binaryQuizSteps[binaryCurrentStepIndex])
       return;
@@ -257,19 +249,19 @@ export default function Quiz({ session }: { session: Session | null }) {
     }
 
     if (correct) {
-      // If this is the first attempt for this step and it's correct, increment score
+      //? if this  first attempt for thie step and  correct --> increment score
       if (!binaryStepAttempted[binaryCurrentStepIndex]) {
         setBinaryUserScore((prevScore) => prevScore + 1);
       }
       setBinaryAttemptMessage("✅ Correct!");
-      // Mark this step as attempted
+      //? mark the steap as   attempted
       const updatedStepAttempted = [...binaryStepAttempted];
       updatedStepAttempted[binaryCurrentStepIndex] = true;
       setBinaryStepAttempted(updatedStepAttempted);
 
       proceedToNextBinaryStep();
     } else {
-      // If the user is incorrect on the first attempt of this step, mark it as attempted
+      //? if user is incorrec t  first attempt of this step --> mark  as attempted
       if (!binaryStepAttempted[binaryCurrentStepIndex]) {
         const updatedStepAttempted = [...binaryStepAttempted];
         updatedStepAttempted[binaryCurrentStepIndex] = true;
@@ -284,13 +276,13 @@ export default function Quiz({ session }: { session: Session | null }) {
       setBinaryCurrentStepIndex(binaryCurrentStepIndex + 1);
       setBinaryAttemptMessage("");
     } else {
-      // Binary Search Quiz is complete
+      //? binary search Quiz is complete
       setBinaryIsQuizComplete(true);
       setBinaryAttemptMessage("");
 
-      // Integrate binary search quiz final score with Supabase database here
+      //? intergrate binary search quiz final score with Supabase
       if (user) {
-        // Step 1: Fetch the current binary_score and total_score from the progress table
+        //? step 1 : fetch  current binary_score and total_score from the progress table (dari supabsae)
         const { data: currentProgress, error: fetchError } = await supabase
           .from("progress")
           .select("binary_score, total_score")
@@ -300,13 +292,13 @@ export default function Quiz({ session }: { session: Session | null }) {
         if (fetchError) {
           console.error("Error fetching current binary score:", fetchError);
         } else if (currentProgress) {
-          // Step 2: Calculate the new scores by adding the binaryUserScore to the current scores
+          //? step 2: calculate the new scores --> adding the binaryUserScore to the current scores
           const newBinaryScore =
             (currentProgress.binary_score || 0) + binaryUserScore;
           const newTotalScore =
             (currentProgress.total_score || 0) + binaryUserScore;
 
-          // Step 3: Update the progress table with the new scores
+          //? step 3: update the progress table with the new scores
           const { data: updateData, error: updateError } = await supabase
             .from("progress")
             .update({

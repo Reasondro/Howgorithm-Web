@@ -1,6 +1,5 @@
 #main-header {
   display: grid;
-  /* grid-template-columns: auto auto 1fr auto; */
   grid-template-columns: auto 1fr auto;
   height: 100%;
   align-items: center;
