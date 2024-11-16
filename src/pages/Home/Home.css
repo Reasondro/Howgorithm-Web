@@ -24,6 +24,11 @@
   color: #fff;
   text-decoration: none;
   border-radius: 5px;
+  transition: background-color 0.2s;
+}
+
+.cta-button:hover {
+  background-color: var(--color-accent-300);
 }
 
 .hero-image {
