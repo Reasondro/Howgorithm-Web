@@ -384,7 +384,9 @@ export default function Quiz({ session }: { session: Session | null }) {
                     </strong>
                     .
                   </p>
-                  <p>Should we swap these two elements?</p>
+                  <p className="quiz-question">
+                    Should we swap these two elements?
+                  </p>
                   <div className="buttons-container">
                     <button onClick={() => handleBubbleUserGuess("swap")}>
                       Swap
@@ -492,7 +494,7 @@ export default function Quiz({ session }: { session: Session | null }) {
                       matches the target. What happens next?
                     </p>
                   ) : (
-                    <p>
+                    <p className="quiz-question">
                       Compare target with the middle element at position{" "}
                       <strong>
                         {binaryQuizSteps[binaryCurrentStepIndex].mid}

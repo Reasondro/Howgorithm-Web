@@ -12,6 +12,7 @@ export default function Profile({ session }: { session: Session | null }) {
     bubble_score: number | null;
     binary_score: number | null;
     total_score: number | null;
+    ranked: string | null;
   } | null>(null);
 
   const [username, setUsername] = useState<string | null>(null);
@@ -28,7 +29,7 @@ export default function Profile({ session }: { session: Session | null }) {
     if (!user) return;
     const { data, error } = await supabase
       .from("progress")
-      .select("bubble_score, binary_score, total_score")
+      .select("bubble_score, binary_score, total_score, ranked")
       .eq("id", user.id)
       .single();
 
@@ -99,6 +100,7 @@ export default function Profile({ session }: { session: Session | null }) {
   const bubbleScore = progress?.bubble_score ?? 0;
   const binaryScore = progress?.binary_score ?? 0;
   const totalScore = progress?.total_score ?? 0;
+  const ranked = progress?.ranked ?? "No ranked";
 
   return (
     <main id="main-wrapper">
@@ -126,9 +128,18 @@ export default function Profile({ session }: { session: Session | null }) {
                 onChange={(e) => setUsername(e.target.value)}
               />
             </div>
-            <p className="profile-score">Bubble Sort Score: {bubbleScore}</p>
-            <p className="profile-score">Binary Search Score: {binaryScore}</p>
-            <p className="profile-score">Total Score: {totalScore}</p>
+            <p className="profile-score">
+              Bubble Sort Score: <strong>{bubbleScore}</strong>{" "}
+            </p>
+            <p className="profile-score">
+              Binary Search Score: <strong> {binaryScore}</strong>
+            </p>
+            <p className="profile-score">
+              Total Score: <strong>{totalScore}</strong>
+            </p>
+            <p className="profile-score">
+              Ranked: <strong>{ranked}</strong>{" "}
+            </p>
           </div>
         </div>
 

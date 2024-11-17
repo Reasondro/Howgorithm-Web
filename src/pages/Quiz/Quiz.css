@@ -22,18 +22,19 @@
 }
 
 .quiz-header {
-  margin-bottom: 20px;
+  margin-bottom: 1.2rem;
   text-align: center;
 }
 
 .quiz-header h1 {
   margin-top: 0;
-  font-size: 2.2rem;
+  margin-bottom: 0.3rem;
+  font-size: 2.3rem;
   color: var(--quiz-text-color);
 }
 
 .quiz-header p {
-  font-size: 1rem;
+  font-size: 1.2rem;
   color: #555;
 }
 
@@ -52,7 +53,7 @@
   background-color: var(--quiz-accent-color);
   color: white;
   border-radius: 5px;
-  font-size: 1.2rem;
+  font-size: 1.4rem;
 }
 
 .array-element.highlight {
@@ -70,12 +71,16 @@
 }
 
 .quiz-instructions {
-  font-size: 1rem;
+  font-size: 1.3rem;
   color: var(--quiz-text-color);
 }
 
+.quiz-question {
+  font-size: 1.1rem;
+}
+
 .progress-info {
-  font-size: 0.9rem;
+  font-size: 1rem;
   color: #555;
   margin-top: 10px;
 }
@@ -154,30 +159,6 @@
   .combined-quiz-container {
     margin-top: 1rem;
     margin-bottom: 5rem;
-  }
-  .array-element {
-    margin: 3px;
-    padding: 10px 12px;
-    font-size: 1rem;
-  }
-
-  .quiz-header h1 {
-    font-size: 1.8rem;
-  }
-
-  .quiz-header p {
-    font-size: 0.9rem;
-  }
-
-  .buttons-container button {
-    padding: 8px 16px;
-    font-size: 0.9rem;
-    margin: 0 5px;
-  }
-
-  .restart-button {
-    padding: 8px 16px;
-    font-size: 0.9rem;
   }
 }
 
