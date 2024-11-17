@@ -31,10 +31,10 @@ export default function SignIn() {
         {errorMsg && <div className="error-message">{errorMsg}</div>}
         <form onSubmit={handleSignIn}>
           <div className="form-group">
-            <label htmlFor="email">Email Address</label>
+            <label htmlFor="email-auth">Email Address</label>
             <input
               type="email"
-              id="email"
+              id="email-auth"
               className="form-input"
               value={email}
               onChange={(e) => setEmail(e.target.value)}

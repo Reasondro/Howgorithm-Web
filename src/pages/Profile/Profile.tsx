@@ -79,6 +79,7 @@ export default function Profile({ session }: { session: Session | null }) {
     if (updateError) {
       console.error("Error updating profile:", updateError);
     } else {
+      alert("Profile updated successfully");
       console.log("Profile updated successfully:", updateData);
     }
   }
@@ -120,6 +121,7 @@ export default function Profile({ session }: { session: Session | null }) {
               <input
                 id="username"
                 type="text"
+                placeholder="No username yet"
                 value={username || ""}
                 onChange={(e) => setUsername(e.target.value)}
               />
