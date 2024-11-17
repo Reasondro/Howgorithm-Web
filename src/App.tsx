@@ -1,6 +1,11 @@
 import "@/App.css";
 
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  Navigate,
+} from "react-router-dom";
 
 import DefaultLayout from "@/Layout/DefaultLayout";
 import AuthLayout from "@/Layout/AuthLayout";
@@ -48,6 +53,7 @@ function App() {
             // path="/dynamic-user"
             element={<Profile session={session} />}
           />
+          <Route path="*" element={<Navigate to="/" replace />} />
         </Route>
       </Routes>
     </Router>
