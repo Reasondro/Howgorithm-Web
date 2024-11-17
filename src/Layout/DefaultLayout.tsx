@@ -12,7 +12,7 @@ export default function DefaultLayout({
   return (
     <>
       <Header session={session} />
-      <Outlet /> {/* This will render the matched child routes */}
+      <Outlet /> {/*? rencdtr matczhed  child routes */}
       <Footer />
     </>
   );

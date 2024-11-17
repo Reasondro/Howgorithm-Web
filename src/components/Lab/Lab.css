@@ -4,6 +4,7 @@
   grid-template-columns: 2fr 1fr 1fr;
   gap: 1rem;
   padding: 1rem;
+  margin-bottom: 8rem;
 }
 
 #grid-container > section {
@@ -77,8 +78,8 @@
   grid-column-end: 3;
   grid-row-start: 2;
   grid-row-end: 5;
-  height: 20rem;
-  max-height: 20rem;
+  /* height: 20rem; */
+  /* max-height: 20rem; */
   display: grid;
   grid-template-rows: 2fr 1fr;
   align-items: center;

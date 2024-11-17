@@ -11,7 +11,7 @@
   display: grid;
   grid-template-columns: 1fr;
   gap: 3rem;
-  margin-bottom: 7rem;
+  margin-bottom: 20rem;
 }
 
 .quiz-container {
