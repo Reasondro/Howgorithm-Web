@@ -201,7 +201,33 @@ export default function BinarySearch() {
           <div id="overview-content">
             <h1>Binary Search</h1>
             <p>
-              Binary Search is a quick search algorithm for sorted arrays...
+              Binary Search is a fast search algorithm that efficiently locates
+              the position of a target value within a sorted array or list. It
+              works by repeatedly dividing the search interval in half, hence
+              the name "binary." The algorithm starts by comparing the target
+              value to the middle element of the array:
+            </p>
+            <ul>
+              <li>• Start by locating the middle position of the array.</li>
+              <li>
+                • If the target value matches the middle element, its position
+                is returned.
+              </li>
+              <li>
+                • If the target value is less than the middle element, the
+                search continues on the lower half of the array.
+              </li>
+              <li>
+                • If the target value is greater, the search continues on the
+                upper half.
+              </li>
+            </ul>
+            <p>
+              This process continues recursively or iteratively until the target
+              value is found or the search interval is empty, indicating that
+              the target value is not in the array. Binary Search has a time
+              complexity of O(log n), making it much more efficient than a
+              linear search for large, sorted datasets.
             </p>
           </div>
         </section>
@@ -212,8 +238,9 @@ export default function BinarySearch() {
           <p id="user-instructions">{instructionMessage}</p>
           <p id="steps">Step {currentStep + 1}</p>
           <p id="index-info">
-            Left: {iterations[currentStep]?.l}, Right:{" "}
-            {iterations[currentStep]?.r}, Mid: {iterations[currentStep]?.mid}
+            Left: [{iterations[currentStep]?.l}], Mid: [
+            {iterations[currentStep]?.mid}], Right: [
+            {iterations[currentStep]?.r}]
           </p>
         </section>
         <section className="item3">

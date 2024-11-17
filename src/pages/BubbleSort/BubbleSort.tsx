@@ -128,7 +128,23 @@ export default function BubbleSort() {
         <section className="item1">
           <div id="overview-content">
             <h1>Bubble Sort</h1>
-            <p>Bubble Sort is a simple sorting algorithm...</p>
+            <p>
+              Bubble Sort is a simple and intuitive sorting algorithm that
+              repeatedly steps through the list to be sorted, compares adjacent
+              elements, and swaps them if they are in the wrong order. The
+              process is repeated until the entire list is sorted.
+            </p>
+            <ul>
+              <li>• Compare each pair of adjacent elements.</li>
+              <li>• Swap them if the first is greater than the second.</li>
+              <li>• Continue this process for each element in the list.</li>
+              <li>• Repeat the steps until no swaps are needed.</li>
+            </ul>
+            <p>
+              While easy to understand and implement, Bubble Sort is inefficient
+              for large datasets due to its average and worst-case time
+              complexity of O(n²), where <em>n</em> is the number of elements.
+            </p>
           </div>
         </section>
         <section className="item2">
@@ -138,10 +154,10 @@ export default function BubbleSort() {
           <p id="user-instructions">{instructionMessage}</p>
           <p id="steps">Step {currentStep + 1}</p>
           <p id="outer-loop-info">
-            Outer loop i = {iterations[currentStep]?.i}
+            Outer loop i = [{iterations[currentStep]?.i}]
           </p>
           <p id="inner-loop-info">
-            Inner loop j = {iterations[currentStep]?.j}
+            Inner loop j = [{iterations[currentStep]?.j}]
           </p>
         </section>
         <section className="item3">
