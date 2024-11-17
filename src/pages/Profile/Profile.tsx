@@ -14,9 +14,13 @@ export default function Profile({ session }: { session: Session | null }) {
     total_score: number | null;
   } | null>(null);
 
+  const [username, setUsername] = useState<string | null>(null);
+  const [avatar_url, setAvatarUrl] = useState<string | null>(null);
+
   useEffect(() => {
     if (user) {
       fetchUserProgress();
+      fetchUserProfile();
     }
   }, [user]);
 
@@ -35,6 +39,22 @@ export default function Profile({ session }: { session: Session | null }) {
     }
   }
 
+  async function fetchUserProfile() {
+    if (!user) return;
+    const { data, error } = await supabase
+      .from("profiles")
+      .select("username, avatar_url")
+      .eq("id", user.id)
+      .single();
+
+    if (error) {
+      console.error("Error fetching user s data:", error);
+    } else {
+      setUsername(data.username);
+      setAvatarUrl(data.avatar_url);
+    }
+  }
+
   async function signOut() {
     const {
       data: { user },
@@ -45,6 +65,21 @@ export default function Profile({ session }: { session: Session | null }) {
       navigate("/");
     } else {
       alert("No user is currently logged in.");
+    }
+  }
+
+  async function updateProfile(e: React.FormEvent) {
+    e.preventDefault();
+
+    const { data: updateData, error: updateError } = await supabase
+      .from("profiles")
+      .update({ username: username, avatar_url: avatar_url })
+      .eq("id", user?.id);
+
+    if (updateError) {
+      console.error("Error updating profile:", updateError);
+    } else {
+      console.log("Profile updated successfully:", updateData);
     }
   }
 
@@ -67,10 +102,28 @@ export default function Profile({ session }: { session: Session | null }) {
   return (
     <main id="main-wrapper">
       <div className="profile-page-container">
-        <h1 id="info-text">Your Info</h1>
+        <h1 id="info-text">Account Information</h1>
         <div className="profile-header">
           <div className="profile-info">
-            <p className="profile-email">Email: {session.user.email}</p>
+            <div>
+              <p className="profile-personal">Email</p>
+              <div id="email-container">
+                <p id="email">{session.user.email}</p>
+              </div>
+            </div>
+
+            <div>
+              <label htmlFor="username">
+                <p className="profile-personal">Username</p>
+              </label>
+
+              <input
+                id="username"
+                type="text"
+                value={username || ""}
+                onChange={(e) => setUsername(e.target.value)}
+              />
+            </div>
             <p className="profile-score">Bubble Sort Score: {bubbleScore}</p>
             <p className="profile-score">Binary Search Score: {binaryScore}</p>
             <p className="profile-score">Total Score: {totalScore}</p>
@@ -78,6 +131,9 @@ export default function Profile({ session }: { session: Session | null }) {
         </div>
 
         <div className="profile-actions">
+          <button className="update-button" onClick={updateProfile}>
+            Update
+          </button>
           <button className="sign-out-button" onClick={signOut}>
             Sign out
           </button>
