@@ -254,12 +254,34 @@
 }
 
 @media (max-width: 1800px) {
+  #grid-container {
+    margin-bottom: 4rem;
+  }
   .item1 {
-    height: 17rem;
+    height: 20rem;
     padding: 0 1rem 0.5rem 1rem;
   }
+
+  .item1 #overview-content h1 {
+    font-size: 2.5rem;
+    margin-bottom: 0.2rem;
+  }
+  .item1 #overview-content p {
+    font-size: 1.1rem;
+  }
+
+  .item1 #overview-content ul {
+    margin-top: 0.1rem;
+    margin-bottom: 0.2rem;
+  }
+
+  .item1 #overview-content ul li {
+    font-size: 1.1rem;
+    margin-bottom: 0.3rem;
+    padding-left: 1rem;
+  }
   .item2 {
-    height: 17rem;
+    height: 20rem;
   }
 
   .item2 #guide-container {

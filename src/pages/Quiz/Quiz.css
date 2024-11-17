@@ -11,7 +11,7 @@
   display: grid;
   grid-template-columns: 1fr;
   gap: 3rem;
-  margin-bottom: 20rem;
+  margin-bottom: 19rem;
 }
 
 .quiz-container {
@@ -149,6 +149,36 @@
 
 .restart-button:hover {
   background-color: #1d4ed8;
+}
+@media screen and (max-width: 1800px) {
+  .combined-quiz-container {
+    margin-top: 1rem;
+    margin-bottom: 5rem;
+  }
+  .array-element {
+    margin: 3px;
+    padding: 10px 12px;
+    font-size: 1rem;
+  }
+
+  .quiz-header h1 {
+    font-size: 1.8rem;
+  }
+
+  .quiz-header p {
+    font-size: 0.9rem;
+  }
+
+  .buttons-container button {
+    padding: 8px 16px;
+    font-size: 0.9rem;
+    margin: 0 5px;
+  }
+
+  .restart-button {
+    padding: 8px 16px;
+    font-size: 0.9rem;
+  }
 }
 
 @media screen and (max-width: 600px) {
